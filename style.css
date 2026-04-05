@@ -24,7 +24,7 @@ body {
   z-index: 1;
 }
 
-/* Tap Zone (OVER the mic) */
+/* Tap Zone (DEBUG MODE ON) */
 .tap-zone {
   position: fixed;
   left: 50%;
@@ -33,11 +33,8 @@ body {
   width: 180px;
   height: 180px;
   border-radius: 50%;
-  z-index: 10;
-}
+  z-index: 9999;
 
-/* Tap Feedback */
-.tap-zone:active {
-  box-shadow: 0 0 60px rgba(255,165,0,0.8);
-  transform: translate(-50%, -50%) scale(0.95);
+  /* 🔴 TEMP DEBUG - REMOVE LATER */
+  background: rgba(255, 0, 0, 0.3);
 }
