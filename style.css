@@ -2,7 +2,12 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: radial-gradient(circle at center, #0a0a0a, #000000);
+
+  background-image: url('bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
   color: #ffb347;
   height: 100vh;
   overflow: hidden;
