@@ -118,9 +118,15 @@ body {
   opacity: 0.65;
 }
 .hero {
-  transition: opacity 0.4s ease;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin-top: 80px;
+
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .hero.hidden {
   opacity: 0;
+  transform: translateY(-20px);
 }
