@@ -1,36 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Create Job</title>
+  <title>Job</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
   <div class="dashboard">
-
-    <h1>New Motorbike Job</h1>
-
-    <div class="job">
-      <p id="jobDetails">Yamaha MT-07 - Clutch Repair</p>
-      <span id="status">Status: In Progress</span>
-    </div>
-
-    <button onclick="completeJob()">Mark as Ready</button>
-
-    <br><br>
-    <button onclick="goBack()">⬅ Back</button>
-
+    <h1>Job Created</h1>
+    <p>Returning to dashboard...</p>
   </div>
 
 <script>
-function completeJob() {
-  document.getElementById("status").innerText = "Status: Ready";
-}
-
-function goBack() {
-  window.location.href = "index.html";
-}
+setTimeout(() => {
+  window.location.href = "dashboard.html";
+}, 1500);
 </script>
 
 </body>
