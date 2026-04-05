@@ -5,57 +5,67 @@
   font-family: Arial, sans-serif;
 }
 
-html, body {
-  height: 100%;
-}
-
-/* 🔥 THIS IS THE KEY PART */
 body {
-  background: url("bg.png") no-repeat center center;
-  background-size: cover;
+  background: #000;
   color: #f5a623;
-}
-
-/* overlay to position text */
-.overlay {
-  height: 100%;
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  text-align: center;
-  padding-top: 100px;
+  justify-content: center;
+  align-items: flex-start;
 }
 
+/* Layout */
+.container {
+  text-align: center;
+  padding-top: 90px;
+  width: 100%;
+}
+
+/* Text */
 h1 {
-  font-size: 42px;
-  letter-spacing: 6px;
+  font-size: 44px;
+  letter-spacing: 8px;
+  font-weight: 600;
 }
 
 h2 {
-  margin-top: 10px;
-  font-size: 22px;
+  margin-top: 14px;
+  font-size: 24px;
+  font-weight: 500;
 }
 
-p {
-  margin-top: 5px;
+.sub {
+  margin-top: 6px;
   font-size: 16px;
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
-.spacer {
-  height: 260px; /* pushes text down toward circle */
+/* 🔥 PERFECT GLOW CIRCLE */
+.circle {
+  width: 260px;
+  height: 260px;
+  margin: 90px auto;
+  border-radius: 50%;
+  
+  border: 2px solid #ff9f1c;
+
+  /* layered glow */
+  box-shadow:
+    0 0 20px #ff9f1c,
+    0 0 40px #ff9f1c,
+    0 0 80px #ff9f1c,
+    0 0 120px rgba(255, 159, 28, 0.6);
+
+  /* subtle inner darkness */
+  background: radial-gradient(circle at center, #0a0a0a 40%, transparent 70%);
 }
 
-.tap {
-  margin-top: 40px;
-  font-size: 14px;
-  opacity: 0.6;
-}
-
+/* Footer */
 .footer {
   position: absolute;
-  bottom: 20px;
+  bottom: 25px;
+  width: 100%;
+  text-align: center;
   font-size: 14px;
   opacity: 0.6;
 }
