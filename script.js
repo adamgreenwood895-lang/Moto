@@ -5,13 +5,12 @@ function handleTap() {
   const glow = document.getElementById("glow");
   const output = document.getElementById("output");
 
-  // Check browser support
   if (!('webkitSpeechRecognition' in window)) {
-    output.innerText = "Speech not supported on this device";
+    output.innerText = "Speech not supported";
+    output.classList.add("active");
     return;
   }
 
-  // Initialise once
   if (!recognition) {
     recognition = new webkitSpeechRecognition();
     recognition.continuous = true;
@@ -24,16 +23,16 @@ function handleTap() {
         transcript += event.results[i][0].transcript;
       }
 
-      // Show live speech on screen
       output.innerText = transcript;
+      output.classList.add("active");
+      output.classList.remove("listening");
     };
 
-    recognition.onerror = function(event) {
-      output.innerText = "Error: " + event.error;
+    recognition.onerror = function() {
+      output.innerText = "Error...";
     };
 
     recognition.onend = function() {
-      // Safety: if it stops unexpectedly
       if (listening) {
         recognition.start();
       }
@@ -44,11 +43,19 @@ function handleTap() {
 
   if (listening) {
     glow.classList.add("active");
+
     output.innerText = "Listening...";
+    output.classList.add("active", "listening");
+
     recognition.start();
+
   } else {
     glow.classList.remove("active");
     recognition.stop();
-    output.innerText = "";
+
+    // Fade out text after stop
+    setTimeout(() => {
+      output.classList.remove("active");
+    }, 1200);
   }
 }
