@@ -1,40 +1,69 @@
 let listening = false;
 let recognition;
 
-// Conversation state
-let mode = "idle";
-let jobData = {
-  name: "",
-  bike: "",
-  description: ""
-};
-
+// MAIN TAP FUNCTION
 function handleTap() {
   const glow = document.getElementById("glow");
   const output = document.getElementById("output");
+  const hero = document.getElementById("hero");
 
+  // Check support
   if (!("webkitSpeechRecognition" in window)) {
-    alert("Speech recognition not supported");
+    alert("Speech recognition not supported on this device");
     return;
   }
 
+  // START LISTENING
   if (!listening) {
+
+    // Hide hero (🔥 premium feel)
+    hero.classList.add("hidden");
+
     recognition = new webkitSpeechRecognition();
     recognition.continuous = false;
     recognition.interimResults = false;
 
     recognition.onstart = () => {
       listening = true;
+
       glow.classList.add("active");
+
       output.textContent = "Listening...";
-      output.classList.add("active");
+      output.classList.add("active", "listening");
     };
 
     recognition.onresult = (event) => {
       const text = event.results[0][0].transcript.toLowerCase();
+
+      output.classList.remove("listening");
+      output.textContent = text;
+
       console.log("User said:", text);
 
-      processCommand(text, output);
+      // ===== COMMAND DETECTION =====
+
+      if (
+        text.includes("job") &&
+        (text.includes("create") ||
+         text.includes("add") ||
+         text.includes("book") ||
+         text.includes("new"))
+      ) {
+        output.textContent = "Customer name?";
+      }
+
+      else if (text.includes("dashboard") || text.includes("check job")) {
+        output.textContent = "Opening dashboard...";
+      }
+
+      else {
+        output.textContent = "Command not recognised";
+      }
+
+      // Fade out after delay
+      setTimeout(() => {
+        output.classList.remove("active");
+      }, 3000);
     };
 
     recognition.onend = () => {
@@ -45,85 +74,15 @@ function handleTap() {
     recognition.start();
 
   } else {
+    // STOP LISTENING
     recognition.stop();
     listening = false;
+
     glow.classList.remove("active");
 
-    setTimeout(() => {
-      document.getElementById("output").classList.remove("active");
-    }, 300);
-  }
-}
-
-function processCommand(text, output) {
-
-  // ===== JOB CREATION TRIGGER =====
-  if (
-    mode === "idle" &&
-    text.includes("job") &&
-    (text.includes("create") || text.includes("add") || text.includes("new") || text.includes("book"))
-  ) {
-    mode = "awaiting_name";
-    output.textContent = "Customer name?";
-    return;
-  }
-
-  // ===== STEP 1: NAME =====
-  if (mode === "awaiting_name") {
-    jobData.name = text;
-    mode = "awaiting_bike";
-    output.textContent = "Bike make and model?";
-    return;
-  }
-
-  // ===== STEP 2: BIKE =====
-  if (mode === "awaiting_bike") {
-    jobData.bike = text;
-    mode = "awaiting_description";
-    output.textContent = "Job description?";
-    return;
-  }
-
-  // ===== STEP 3: DESCRIPTION =====
-  if (mode === "awaiting_description") {
-    jobData.description = text;
-
-    const reference = `${capitalize(jobData.name)} ${jobData.bike}`;
-
-    output.textContent = `Job created: ${reference}`;
-
-    console.log("JOB CREATED:", jobData);
-
-    // Reset system
-    mode = "idle";
-    jobData = { name: "", bike: "", description: "" };
-
+    const output = document.getElementById("output");
     setTimeout(() => {
       output.classList.remove("active");
-    }, 2500);
-
-    return;
+    }, 300);
   }
-
-  // ===== DASHBOARD / UPDATE =====
-  if (
-    text.includes("update") ||
-    text.includes("check") ||
-    text.includes("customer")
-  ) {
-    output.textContent = "Opening dashboard...";
-    console.log("Dashboard intent detected");
-
-    // future: window.location = "dashboard.html";
-
-    return;
-  }
-
-  // ===== FALLBACK =====
-  output.textContent = "Command not recognised";
-}
-
-// Helper
-function capitalize(text) {
-  return text.charAt(0).toUpperCase() + text.slice(1);
 }
