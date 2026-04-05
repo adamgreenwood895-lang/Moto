@@ -7,13 +7,9 @@ function handleTap() {
 
   if (listening) {
     glow.classList.add("active");
-
-    // Simulate listening
     console.log("Listening...");
-    
   } else {
     glow.classList.remove("active");
-
     console.log("Stopped");
   }
 }
