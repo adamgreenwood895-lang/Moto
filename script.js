@@ -8,10 +8,14 @@ micBtn.addEventListener("click", () => {
   const text = command.toLowerCase();
 
   if (text.includes("add job")) {
+    alert("Starting new motorbike job...");
     window.location.href = "job.html";
-  } else if (text.includes("dashboard")) {
+  } 
+  else if (text.includes("dashboard")) {
+    alert("Opening workshop dashboard...");
     window.location.href = "dashboard.html";
-  } else {
-    alert("Command not recognised");
+  } 
+  else {
+    alert("Command not recognised. Try 'Add job' or 'Dashboard'");
   }
 });
