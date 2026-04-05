@@ -1,23 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Moto</title>
-  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: url('bg.png') no-repeat center center;
+      background-size: cover;
+    }
+
+    .mic-hitbox {
+      position: absolute;
+      width: 230px;
+      height: 230px;
+      left: 50%;
+      top: 62%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .status {
+      position: absolute;
+      bottom: 80px;
+      width: 100%;
+      text-align: center;
+      color: #ffb347;
+      font-size: 14px;
+    }
+  </style>
+
 </head>
 
 <body>
 
-  <!-- BACKGROUND IMAGE -->
-  <div class="bg"></div>
+  <div class="mic-hitbox" onclick="start()"></div>
+  <div class="status">Tap to speak</div>
 
-  <!-- MIC CLICK AREA -->
-  <div class="mic-hitbox" id="micBtn"></div>
+  <script>
+    function start() {
+      alert("Mic tapped (working)");
+    }
+  </script>
 
-  <!-- STATUS -->
-  <div class="status" id="statusText">Tap to speak</div>
-
-  <script src="app.js"></script>
 </body>
 </html>
