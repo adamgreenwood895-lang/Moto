@@ -1,85 +1,72 @@
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
 }
 
 body {
-  height: 100vh;
-  background: radial-gradient(circle at center, #0a0a0a 20%, #000 70%);
+  font-family: Arial, sans-serif;
+  background: black;
   color: #f5a623;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  height: 100vh;
+  overflow: hidden;
 }
 
-/* Layout */
-.container {
-  text-align: center;
-  padding-top: 90px;
+/* Background image */
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+  background: url("bg-clean.png") no-repeat center center;
+  background-size: cover;
+  z-index: -1;
 }
 
-/* Text */
-h1 {
-  font-size: 44px;
-  letter-spacing: 8px;
-}
-
-h2 {
-  margin-top: 14px;
-  font-size: 24px;
-}
-
-.sub {
-  margin-top: 6px;
-  font-size: 16px;
-  opacity: 0.7;
-}
-
-/* 🔥 REAL MIC BUTTON (matches your design better) */
-.mic {
-  width: 220px;
-  height: 220px;
-  margin: 90px auto;
-  border-radius: 50%;
+/* Main content */
+.content {
   position: relative;
-
-  background: radial-gradient(circle, #111 40%, #000 70%);
-
-  box-shadow:
-    0 0 30px #ff9f1c,
-    0 0 80px rgba(255, 159, 28, 0.8),
-    0 0 140px rgba(255, 159, 28, 0.4);
+  z-index: 2;
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 80px;
 }
 
-/* inner glow ring */
-.mic::before {
-  content: "";
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  border: 2px solid #ff9f1c;
-  box-shadow: 0 0 30px #ff9f1c, 0 0 60px #ff9f1c;
+/* Title */
+h1 {
+  font-size: 48px;
+  letter-spacing: 8px;
+  margin-bottom: 20px;
 }
 
-/* mic icon */
-.mic::after {
-  content: "🎤";
-  font-size: 60px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+/* Subtitle */
+h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+/* Small text */
+p {
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+/* Mic button (aligned to ring) */
+.mic {
+  margin-top: 220px; /* adjust if needed slightly */
+  font-size: 42px;
 }
 
 /* Footer */
 .footer {
   position: absolute;
-  bottom: 25px;
-  width: 100%;
-  text-align: center;
+  bottom: 30px;
   font-size: 14px;
-  opacity: 0.6;
+  opacity: 0.7;
 }
