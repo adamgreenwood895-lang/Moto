@@ -5,57 +5,51 @@ function handleTap() {
   const glow = document.getElementById("glow");
   const output = document.getElementById("output");
 
-  if (!('webkitSpeechRecognition' in window)) {
-    output.innerText = "Speech not supported";
-    output.classList.add("active");
+  if (!("webkitSpeechRecognition" in window)) {
+    alert("Speech recognition not supported");
     return;
   }
 
-  if (!recognition) {
+  if (!listening) {
     recognition = new webkitSpeechRecognition();
-    recognition.continuous = true;
-    recognition.interimResults = true;
+    recognition.continuous = false;
+    recognition.interimResults = false;
 
-    recognition.onresult = function(event) {
-      let transcript = "";
+    recognition.onstart = () => {
+      listening = true;
+      glow.classList.add("active");
 
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        transcript += event.results[i][0].transcript;
-      }
+      output.textContent = "Listening...";
+      output.classList.add("active", "listening");
+    };
 
-      output.innerText = transcript;
-      output.classList.add("active");
+    recognition.onresult = (event) => {
+      const text = event.results[0][0].transcript;
+
+      output.textContent = text;
       output.classList.remove("listening");
+
+      setTimeout(() => {
+        output.classList.remove("active");
+      }, 2500);
+
+      console.log("User said:", text);
     };
 
-    recognition.onerror = function() {
-      output.innerText = "Error...";
+    recognition.onend = () => {
+      listening = false;
+      glow.classList.remove("active");
     };
-
-    recognition.onend = function() {
-      if (listening) {
-        recognition.start();
-      }
-    };
-  }
-
-  listening = !listening;
-
-  if (listening) {
-    glow.classList.add("active");
-
-    output.innerText = "Listening...";
-    output.classList.add("active", "listening");
 
     recognition.start();
 
   } else {
-    glow.classList.remove("active");
     recognition.stop();
+    listening = false;
+    glow.classList.remove("active");
 
-    // Fade out text after stop
     setTimeout(() => {
       output.classList.remove("active");
-    }, 1200);
+    }, 300);
   }
 }
