@@ -1,5 +1,19 @@
-alert("script loaded");
+let listening = false;
 
 function handleTap() {
-  alert("Mic working 🎤");
+  const glow = document.getElementById("glow");
+
+  listening = !listening;
+
+  if (listening) {
+    glow.classList.add("active");
+
+    // Simulate listening
+    console.log("Listening...");
+    
+  } else {
+    glow.classList.remove("active");
+
+    console.log("Stopped");
+  }
 }
