@@ -1,6 +1,4 @@
-const micBtn = document.getElementById("micBtn");
-
-micBtn.addEventListener("click", () => {
+document.querySelector(".mic-ring").addEventListener("click", () => {
   const command = prompt("Say a command (Add job / Dashboard)");
 
   if (!command) return;
@@ -8,14 +6,12 @@ micBtn.addEventListener("click", () => {
   const text = command.toLowerCase();
 
   if (text.includes("add job")) {
-    alert("Starting new motorbike job...");
     window.location.href = "job.html";
   } 
   else if (text.includes("dashboard")) {
-    alert("Opening workshop dashboard...");
     window.location.href = "dashboard.html";
   } 
   else {
-    alert("Command not recognised. Try 'Add job' or 'Dashboard'");
+    alert("Command not recognised");
   }
 });
