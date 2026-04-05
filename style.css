@@ -1,56 +1,7 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-html, body {
-  height: 100%;
-}
-
-/* 🔥 USE YOUR REAL IMAGE */
 body {
+  margin: 0;
+  height: 100vh;
   background: url("bg.png") no-repeat center center;
-  background-size: cover;
-  color: #f5a623;
-}
-
-/* Layout */
-.container {
-  height: 100%;
-  position: relative;
-  text-align: center;
-}
-
-/* Top text */
-.top {
-  position: absolute;
-  top: 90px;
-  width: 100%;
-}
-
-h1 {
-  font-size: 44px;
-  letter-spacing: 8px;
-}
-
-h2 {
-  margin-top: 12px;
-  font-size: 24px;
-}
-
-.sub {
-  margin-top: 6px;
-  font-size: 16px;
-  opacity: 0.7;
-}
-
-/* Bottom text */
-.footer {
-  position: absolute;
-  bottom: 25px;
-  width: 100%;
-  font-size: 14px;
-  opacity: 0.6;
+  background-size: contain;
+  background-color: black;
 }
