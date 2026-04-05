@@ -10,9 +10,10 @@ body {
   background: black;
   height: 100vh;
   overflow: hidden;
+  font-family: Arial, sans-serif;
 }
 
-/* Background Image */
+/* Background */
 .background {
   position: fixed;
   top: 0;
@@ -24,7 +25,7 @@ body {
   z-index: 1;
 }
 
-/* Tap Zone (DEBUG MODE ON) */
+/* Tap Zone (invisible but active) */
 .tap-zone {
   position: fixed;
   left: 50%;
@@ -33,8 +34,34 @@ body {
   width: 180px;
   height: 180px;
   border-radius: 50%;
-  z-index: 9999;
+  z-index: 5;
+}
 
-  /* 🔴 TEMP DEBUG - REMOVE LATER */
-  background: rgba(255, 0, 0, 0.3);
+/* Glow effect */
+.glow {
+  position: fixed;
+  left: 50%;
+  top: 65%;
+  transform: translate(-50%, -50%);
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* ACTIVE STATE */
+.glow.active {
+  box-shadow: 
+    0 0 40px rgba(255, 140, 0, 0.6),
+    0 0 80px rgba(255, 140, 0, 0.4),
+    0 0 120px rgba(255, 140, 0, 0.2);
+  animation: pulse 1.2s infinite;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.08); }
+  100% { transform: translate(-50%, -50%) scale(1); }
 }
