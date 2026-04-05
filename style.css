@@ -1,69 +1,76 @@
+/* RESET */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: radial-gradient(circle at center, #1a1a1a, #000000);
+  background: radial-gradient(circle at center, #0a0a0a, #000000);
   color: #ffb347;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
-}
-
-/* CONTAINER */
-.container {
-  text-align: center;
-  width: 100%;
-  max-width: 400px;
+  overflow: hidden;
 }
 
 /* LOGO */
 .logo {
-  font-size: 42px;
+  position: absolute;
+  top: 80px;
+  width: 100%;
+  text-align: center;
+  font-size: 38px;
   letter-spacing: 6px;
-  margin-bottom: 20px;
   background: linear-gradient(90deg, #ff8c00, #ffd700);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 /* TAGLINE */
+.tagline {
+  position: absolute;
+  top: 160px;
+  width: 100%;
+  text-align: center;
+}
+
 .tagline h2 {
   font-size: 26px;
   margin: 0;
 }
 
 .tagline p {
-  margin-top: 5px;
+  margin-top: 6px;
   opacity: 0.7;
 }
 
 /* MIC BUTTON */
-.mic-wrapper {
-  margin: 60px 0;
-}
-
 .mic-button {
-  width: 160px;
-  height: 160px;
+  position: absolute;
+  width: 220px;
+  height: 220px;
   border-radius: 50%;
-  background: radial-gradient(circle, #222, #000);
+  left: 50%;
+  top: 62%;
+  transform: translate(-50%, -50%);
+
+  background: radial-gradient(circle, #111, #000);
   border: 2px solid #ff8c00;
+
   box-shadow:
-    0 0 30px rgba(255,140,0,0.6),
-    inset 0 0 20px rgba(255,140,0,0.3);
+    0 0 50px rgba(255,140,0,0.9),
+    inset 0 0 30px rgba(255,140,0,0.4);
+
   cursor: pointer;
-  transition: 0.2s;
+  transition: transform 0.2s ease;
 }
 
 /* PRESS EFFECT */
 .mic-button:active {
-  transform: scale(0.95);
+  transform: translate(-50%, -50%) scale(0.95);
 }
 
 /* FOOTER */
 .footer {
   position: absolute;
-  bottom: 20px;
+  bottom: 25px;
+  width: 100%;
+  text-align: center;
   font-size: 12px;
   opacity: 0.6;
-}
+    }
