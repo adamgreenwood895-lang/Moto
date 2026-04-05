@@ -1,93 +1,14 @@
 /* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* BODY */
-body {
-  background: black;
-  height: 100vh;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-}
-
-/* BACKGROUND */
-.background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url("bg-clean.png") no-repeat center center;
-  background-size: cover;
-  z-index: 1;
-}
-
-/* TAP ZONE */
-.tap-zone {
-  position: fixed;
-  left: 50%;
-  top: 65%;
-  transform: translate(-50%, -50%);
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  z-index: 5;
-}
-
-/* GLOW (FIXED - NO SPILL) */
-.glow {
-  position: fixed;
-  left: 50%;
-  top: 65%;
-  transform: translate(-50%, -50%);
-  width: 180px; /* slightly smaller than ring */
-  height: 180px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 4;
-}
-
-/* ACTIVE GLOW (TIGHT + CLEAN) */
-.glow.active {
-  box-shadow: 
-    0 0 20px rgba(255, 140, 0, 0.5),
-    0 0 40px rgba(255, 140, 0, 0.3);
-  animation: pulse 1.2s ease-in-out infinite;
-}
-
-/* CONTROLLED PULSE */
-@keyframes pulse {
-  0% { transform: translate(-50%, -50%) scale(1); }
-  50% { transform: translate(-50%, -50%) scale(1.04); }
-  100% { transform: translate(-50%, -50%) scale(1); }
-}
-
-/* TEXT OUTPUT */
-#output {
-  position: absolute;
-  bottom: 18%;
-  width: 100%;
-  text-align: center;
-
-  font-size: 18px;
-  color: rgba(255, 255, 255, 0.9);
-
-  text-shadow: 0 0 10px rgba(255,255,255,0.3);
-  letter-spacing: 0.5px;
-
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-#output.active {
-  opacity: 1;
-}
-
-/* LISTENING STATE */
-#output.listening {
-  font-size: 16px;
-  opacity: 0.6;
-}
+{ margin: 0; padding: 0; box-sizing: border-box; }
+/* BODY */ body { background: black; height: 100vh; overflow: hidden; font-family: Arial, sans-serif; }
+/* BACKGROUND IMAGE */ .background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url("bg-clean.png") no-repeat center center; background-size: cover; z-index: 1; }
+/* TAP ZONE (MIC AREA) */ .tap-zone { position: fixed; left: 50%; top: 65%; transform: translate(-50%, -50%); width: 200px; height: 200px; border-radius: 50%; z-index: 5; }
+/* GLOW BASE (SMALLER + CONTROLLED) */ .glow { position: fixed; left: 50%; top: 65%; transform: translate(-50%, -50%); width: 160px; height: 160px; border-radius: 50%; pointer-events: none; z-index: 4; }
+/* ACTIVE GLOW (NO BLEED) */ .glow.active { box-shadow: 0 0 15px rgba(255, 140, 0, 0.6), 0 0 30px rgba(255, 140, 0, 0.4); animation: pulse 1.4s ease-in-out infinite; }
+/* CONTROLLED PULSE */ @keyframes pulse { 0%   { transform: translate(-50%, -50%) scale(1); } 50%  { transform: translate(-50%, -50%) scale(1.03); } 100% { transform: translate(-50%, -50%) scale(1); } }
+/* VOICE OUTPUT TEXT (PREMIUM POSITION + STYLE) */ #output { position: fixed; bottom: 18%; width: 100%; text-align: center;
+font-size: 18px; color: rgba(255, 255, 255, 0.9); letter-spacing: 0.5px;
+text-shadow: 0 0 10px rgba(255,255,255,0.3);
+opacity: 0; transition: opacity 0.3s ease; z-index: 10; }
+/* ACTIVE TEXT */ #output.active { opacity: 1; }
+/* LISTENING STATE */ #output.listening { font-size: 16px; opacity: 0.6; }
