@@ -5,33 +5,39 @@
   font-family: Arial, sans-serif;
 }
 
+html, body {
+  height: 100%;
+}
+
+/* 🔥 USE YOUR REAL IMAGE */
 body {
-  background: #000;
+  background: url("bg.png") no-repeat center center;
+  background-size: cover;
   color: #f5a623;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
 }
 
 /* Layout */
 .container {
+  height: 100%;
+  position: relative;
   text-align: center;
-  padding-top: 90px;
+}
+
+/* Top text */
+.top {
+  position: absolute;
+  top: 90px;
   width: 100%;
 }
 
-/* Text */
 h1 {
   font-size: 44px;
   letter-spacing: 8px;
-  font-weight: 600;
 }
 
 h2 {
-  margin-top: 14px;
+  margin-top: 12px;
   font-size: 24px;
-  font-weight: 500;
 }
 
 .sub {
@@ -40,32 +46,11 @@ h2 {
   opacity: 0.7;
 }
 
-/* 🔥 PERFECT GLOW CIRCLE */
-.circle {
-  width: 260px;
-  height: 260px;
-  margin: 90px auto;
-  border-radius: 50%;
-  
-  border: 2px solid #ff9f1c;
-
-  /* layered glow */
-  box-shadow:
-    0 0 20px #ff9f1c,
-    0 0 40px #ff9f1c,
-    0 0 80px #ff9f1c,
-    0 0 120px rgba(255, 159, 28, 0.6);
-
-  /* subtle inner darkness */
-  background: radial-gradient(circle at center, #0a0a0a 40%, transparent 70%);
-}
-
-/* Footer */
+/* Bottom text */
 .footer {
   position: absolute;
   bottom: 25px;
   width: 100%;
-  text-align: center;
   font-size: 14px;
   opacity: 0.6;
 }
