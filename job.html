@@ -7,13 +7,18 @@
 
 <body>
   <div class="container">
-    <h2>Create Job</h2>
+    <h2>New Motorbike Job</h2>
 
-    <p>Listening...</p>
+    <p id="listening">Listening for job details...</p>
 
-    <button onclick="completeJob()">Complete Job</button>
+    <div class="job">
+      <p id="jobDetails">Yamaha MT-07 - Clutch Repair</p>
+      <span id="status">Status: In Progress</span>
+    </div>
 
-    <p id="status">Status: In Progress</p>
+    <br>
+
+    <button onclick="completeJob()">Mark as Ready</button>
 
     <br><br>
     <button onclick="goBack()">⬅ Back</button>
