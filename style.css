@@ -1,11 +1,11 @@
-/* Reset */
+/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Body */
+/* BODY */
 body {
   background: black;
   height: 100vh;
@@ -13,7 +13,7 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* Background */
+/* BACKGROUND IMAGE */
 .background {
   position: fixed;
   top: 0;
@@ -25,53 +25,73 @@ body {
   z-index: 1;
 }
 
-/* Tap Zone (invisible but active) */
+/* TAP ZONE (MIC AREA) */
 .tap-zone {
   position: fixed;
   left: 50%;
   top: 65%;
   transform: translate(-50%, -50%);
-  width: 180px;
-  height: 180px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   z-index: 5;
 }
 
-/* Glow effect */
+/* GLOW EFFECT */
 .glow {
   position: fixed;
   left: 50%;
   top: 65%;
   transform: translate(-50%, -50%);
-  width: 180px;
-  height: 180px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   pointer-events: none;
   z-index: 4;
 }
 
-/* ACTIVE STATE */
+/* ACTIVE GLOW */
 .glow.active {
   box-shadow: 
-    0 0 40px rgba(255, 140, 0, 0.6),
-    0 0 80px rgba(255, 140, 0, 0.4),
-    0 0 120px rgba(255, 140, 0, 0.2);
-  animation: pulse 1.2s infinite;
+    0 0 30px rgba(255, 140, 0, 0.6),
+    0 0 60px rgba(255, 140, 0, 0.4),
+    0 0 90px rgba(255, 140, 0, 0.2);
+  animation: pulse 1.2s ease-in-out infinite;
 }
 
-/* Pulse animation */
+/* PULSE ANIMATION (CONTROLLED) */
 @keyframes pulse {
   0% { transform: translate(-50%, -50%) scale(1); }
-  50% { transform: translate(-50%, -50%) scale(1.08); }
+  50% { transform: translate(-50%, -50%) scale(1.05); }
   100% { transform: translate(-50%, -50%) scale(1); }
 }
+
+/* VOICE TEXT OUTPUT */
 #output {
   position: fixed;
-  bottom: 120px;
+  bottom: 140px;
   width: 100%;
   text-align: center;
   color: #ff9d2f;
-  font-size: 18px;
-  padding: 0 20px;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  padding: 0 30px;
   z-index: 10;
+
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
+
+/* SHOW TEXT */
+#output.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* LISTENING STYLE */
+#output.listening {
+  font-size: 16px;
+  opacity: 0.7;
+    }
