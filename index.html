@@ -4,54 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Moto</title>
-
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-    }
-
-    body {
-      background-image: url('bg.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-
-    .mic-hitbox {
-      position: absolute;
-      width: 230px;
-      height: 230px;
-      left: 50%;
-      top: 62%;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      cursor: pointer;
-    }
-
-    .status {
-      position: absolute;
-      bottom: 80px;
-      width: 100%;
-      text-align: center;
-      color: #ffb347;
-      font-size: 14px;
-      font-family: Arial, sans-serif;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <div class="mic-hitbox" onclick="test()"></div>
-  <div class="status">Tap to speak</div>
+  <div class="container">
 
-  <script>
-    function test() {
-      alert("Working");
-    }
-  </script>
+    <h1 class="logo">MOTO</h1>
 
+    <div class="tagline">
+      <h2>Say it, done.</h2>
+      <p>We’ll handle the rest.</p>
+    </div>
+
+    <div class="mic-wrapper">
+      <div class="mic-button" id="micBtn"></div>
+    </div>
+
+    <p class="footer">Powered by Operon</p>
+
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
