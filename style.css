@@ -89,24 +89,25 @@ body {
    VOICE OUTPUT TEXT
 ========================= */
 #output {
-  position: fixed;
-  bottom: 8%;   /* LOWER = clear of mic */
-  width: 100%;
-  text-align: center;
+    position: fixed;
+    bottom: 22%; /* pushes it well below mic */
 
-  font-size: 18px;
+    width: 100%;
+    text-align: center;
 
-  /* NEW PREMIUM COLOUR (clean + visible) */
-  color: rgba(255, 230, 180, 0.95);
+    font-size: 18px;
+    color: rgba(255, 210, 150, 0.95); /* warm gold */
 
-  letter-spacing: 0.6px;
+    letter-spacing: 0.5px;
 
-  /* SOFTER, WIDER GLOW */
-  text-shadow: 0 0 18px rgba(255, 170, 60, 0.35);
+    text-shadow:
+        0 0 8px rgba(255, 170, 60, 0.6),
+        0 0 18px rgba(255, 120, 20, 0.4);
 
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 10;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    z-index: 10;
 }
 
 #output.active {
