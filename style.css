@@ -13,7 +13,7 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* BACKGROUND IMAGE */
+/* BACKGROUND */
 .background {
   position: fixed;
   top: 0;
@@ -25,7 +25,7 @@ body {
   z-index: 1;
 }
 
-/* TAP ZONE (MIC AREA) */
+/* TAP ZONE */
 .tap-zone {
   position: fixed;
   left: 50%;
@@ -37,36 +37,35 @@ body {
   z-index: 5;
 }
 
-/* GLOW EFFECT */
+/* GLOW (FIXED - NO SPILL) */
 .glow {
   position: fixed;
   left: 50%;
   top: 65%;
   transform: translate(-50%, -50%);
-  width: 200px;
-  height: 200px;
+  width: 180px; /* slightly smaller than ring */
+  height: 180px;
   border-radius: 50%;
   pointer-events: none;
   z-index: 4;
 }
 
-/* ACTIVE GLOW */
+/* ACTIVE GLOW (TIGHT + CLEAN) */
 .glow.active {
   box-shadow: 
-    0 0 30px rgba(255, 140, 0, 0.6),
-    0 0 60px rgba(255, 140, 0, 0.4),
-    0 0 90px rgba(255, 140, 0, 0.2);
+    0 0 20px rgba(255, 140, 0, 0.5),
+    0 0 40px rgba(255, 140, 0, 0.3);
   animation: pulse 1.2s ease-in-out infinite;
 }
 
-/* PULSE ANIMATION (CONTROLLED) */
+/* CONTROLLED PULSE */
 @keyframes pulse {
   0% { transform: translate(-50%, -50%) scale(1); }
-  50% { transform: translate(-50%, -50%) scale(1.05); }
+  50% { transform: translate(-50%, -50%) scale(1.04); }
   100% { transform: translate(-50%, -50%) scale(1); }
 }
 
-/* VOICE TEXT OUTPUT */
+/* TEXT OUTPUT */
 #output {
   position: fixed;
   bottom: 140px;
@@ -75,23 +74,20 @@ body {
   color: #ff9d2f;
   font-size: 20px;
   font-weight: 500;
-  letter-spacing: 0.5px;
   padding: 0 30px;
   z-index: 10;
 
   opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 
 /* SHOW TEXT */
 #output.active {
   opacity: 1;
-  transform: translateY(0);
 }
 
-/* LISTENING STYLE */
+/* LISTENING STATE */
 #output.listening {
   font-size: 16px;
-  opacity: 0.7;
-    }
+  opacity: 0.6;
+}
