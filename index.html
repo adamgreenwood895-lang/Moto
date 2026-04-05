@@ -5,21 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MOTO</title>
 
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+  <!-- Background -->
   <div class="background"></div>
 
+  <!-- HERO TEXT (will fade out on tap) -->
+  <div class="hero" id="hero">
+    <h1>MOTO</h1>
+    <h2>Say it, done.</h2>
+    <p>We’ll handle the rest.</p>
+  </div>
+
+  <!-- GLOW EFFECT -->
   <div class="glow" id="glow"></div>
 
+  <!-- TAP ZONE (mic button area) -->
   <div class="tap-zone" onclick="handleTap()"></div>
 
-  <!-- LIVE TEXT OUTPUT -->
+  <!-- VOICE OUTPUT -->
   <div id="output"></div>
 
+  <!-- SCRIPT -->
   <script src="script.js"></script>
 
 </body>
