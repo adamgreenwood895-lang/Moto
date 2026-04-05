@@ -1,21 +1,13 @@
-const micBtn = document.getElementById("micBtn");
+function handleTap() {
+  console.log("Mic tapped");
 
-micBtn.addEventListener("click", () => {
-  const command = prompt("Say a command (Add job / Dashboard)");
+  const zone = document.querySelector(".tap-zone");
 
-  if (!command) return;
+  zone.style.boxShadow = "0 0 60px rgba(255,165,0,0.9)";
 
-  const text = command.toLowerCase();
+  setTimeout(() => {
+    zone.style.boxShadow = "none";
+  }, 300);
 
-  if (text.includes("add job")) {
-    alert("Starting motorbike job...");
-    window.location.href = "job.html";
-  } 
-  else if (text.includes("dashboard")) {
-    alert("Opening workshop dashboard...");
-    window.location.href = "dashboard.html";
-  } 
-  else {
-    alert("Command not recognised");
-  }
-});
+  alert("Listening...");
+}
