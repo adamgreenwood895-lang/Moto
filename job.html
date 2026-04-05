@@ -1,1 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create Job</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+  <div class="container">
+    <h2>Create Job</h2>
+
+    <p>Listening...</p>
+
+    <button onclick="completeJob()">Complete Job</button>
+
+    <p id="status">Status: In Progress</p>
+
+    <br><br>
+    <button onclick="goBack()">⬅ Back</button>
+  </div>
+
+<script>
+function completeJob() {
+  document.getElementById("status").innerText = "Status: Ready";
+}
+
+function goBack() {
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
