@@ -7,33 +7,51 @@
 
 <body>
 
-  <div class="dashboard">
+<div class="dashboard">
+  <h1>Workshop Dashboard</h1>
 
-    <h1>Workshop Dashboard</h1>
+  <div id="jobList"></div>
 
-    <div class="job">
-      <p>Yamaha R1 - Chain Replacement</p>
-      <span>Status: In Progress</span>
-    </div>
-
-    <div class="job">
-      <p>Honda CBR600RR - Oil Change</p>
-      <span>Status: Ready</span>
-    </div>
-
-    <div class="job">
-      <p>Kawasaki Ninja ZX-6R - Brake Service</p>
-      <span>Status: Awaiting Parts</span>
-    </div>
-
-    <button onclick="goBack()">⬅ Back</button>
-
-  </div>
+  <button onclick="goBack()">⬅ Back</button>
+</div>
 
 <script>
+function getJobs() {
+  return JSON.parse(localStorage.getItem("moto_jobs") || "[]");
+}
+
+function renderJobs() {
+  const jobs = getJobs();
+  const container = document.getElementById("jobList");
+  container.innerHTML = "";
+
+  jobs.forEach(job => {
+    const div = document.createElement("div");
+    div.className = "job";
+    div.innerHTML = `
+      <p>${job.title}</p>
+      <span>Status: ${job.status}</span>
+      <button onclick="completeJob(${job.id})">Mark Ready</button>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function completeJob(id) {
+  let jobs = getJobs();
+  jobs = jobs.map(j => {
+    if (j.id === id) j.status = "Ready";
+    return j;
+  });
+  localStorage.setItem("moto_jobs", JSON.stringify(jobs));
+  renderJobs();
+}
+
 function goBack() {
   window.location.href = "index.html";
 }
+
+renderJobs();
 </script>
 
 </body>
