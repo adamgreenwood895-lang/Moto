@@ -1,57 +1,26 @@
-let listening = false;
-let recognition;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOTO</title>
 
-function handleTap() {
-  const glow = document.getElementById("glow");
-  const output = document.getElementById("output");
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
 
-  if (!("webkitSpeechRecognition" in window)) {
-    alert("Speech recognition not supported");
-    return;
-  }
+<body>
 
-  if (!listening) {
-    recognition = new webkitSpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = false;
+  <div class="background"></div>
 
-    recognition.onstart = () => {
-      listening = true;
-      glow.classList.add("active");
+  <div class="glow" id="glow"></div>
 
-      output.textContent = "Listening...";
-      output.classList.add("active", "listening");
-    };
+  <div class="tap-zone" onclick="handleTap()"></div>
 
-    recognition.onresult = (event) => {
-      const text = event.results[0][0].transcript;
+  <!-- LIVE TEXT OUTPUT -->
+  <div id="output"></div>
 
-      output.textContent = text;
-      output.classList.remove("listening");
+  <script src="script.js"></script>
 
-      // AUTO FADE OUT AFTER 2.5s (premium feel)
-      setTimeout(() => {
-        output.classList.remove("active");
-      }, 2500);
-
-      console.log("User said:", text);
-    };
-
-    recognition.onend = () => {
-      listening = false;
-      glow.classList.remove("active");
-    };
-
-    recognition.start();
-
-  } else {
-    recognition.stop();
-    listening = false;
-    glow.classList.remove("active");
-
-    // FADE OUT TEXT WHEN STOPPED
-    setTimeout(() => {
-      output.classList.remove("active");
-    }, 300);
-  }
-}
+</body>
+</html>
