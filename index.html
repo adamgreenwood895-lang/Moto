@@ -6,11 +6,17 @@
   <title>Moto</title>
 
   <style>
-    body {
+    html, body {
       margin: 0;
-      height: 100vh;
-      background: url('bg.png') no-repeat center center;
+      padding: 0;
+      height: 100%;
+    }
+
+    body {
+      background-image: url('bg.png');
       background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .mic-hitbox {
@@ -31,19 +37,19 @@
       text-align: center;
       color: #ffb347;
       font-size: 14px;
+      font-family: Arial, sans-serif;
     }
   </style>
-
 </head>
 
 <body>
 
-  <div class="mic-hitbox" onclick="start()"></div>
+  <div class="mic-hitbox" onclick="test()"></div>
   <div class="status">Tap to speak</div>
 
   <script>
-    function start() {
-      alert("Mic tapped (working)");
+    function test() {
+      alert("Working");
     }
   </script>
 
