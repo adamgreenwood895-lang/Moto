@@ -1,86 +1,54 @@
-/* =========================
-   RESET
-========================= */
+/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* =========================
-   BODY
-========================= */
 body {
-  height: 100vh;
-  font-family: Arial, sans-serif;
-  overflow: hidden;
-}
-
-/* =========================
-   LANDING PAGE
-========================= */
-body.landing {
   background: black;
+  height: 100vh;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
 }
 
-/* =========================
-   BACKGROUND IMAGE
-========================= */
+/* BACKGROUND */
 .background {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-
   background: url("bg.png") no-repeat center center;
   background-size: cover;
-
   z-index: -1;
 }
 
-/* =========================
-   TAP ZONE (MIC)
-========================= */
+/* TAP ZONE */
 .tap-zone {
   position: absolute;
   bottom: 20%;
   left: 50%;
   transform: translateX(-50%);
-
   width: 220px;
   height: 220px;
   border-radius: 50%;
-
   cursor: pointer;
-  z-index: 5;
 }
 
-/* =========================
-   GLOW
-========================= */
+/* GLOW */
 .glow {
   position: absolute;
   bottom: 20%;
   left: 50%;
   transform: translateX(-50%);
-
   width: 180px;
   height: 180px;
   border-radius: 50%;
-
-  background: radial-gradient(
-    circle,
-    rgba(255, 140, 40, 0.4),
-    transparent 70%
-  );
-
+  background: radial-gradient(circle, rgba(255,140,40,0.4), transparent 70%);
   opacity: 0;
 }
 
-/* =========================
-   ACTIVE GLOW
-========================= */
 .glow.active {
   opacity: 1;
   animation: pulse 1.6s infinite;
@@ -92,13 +60,10 @@ body.landing {
   100% { transform: translateX(-50%) scale(1); }
 }
 
-/* =========================
-   VOICE TEXT (SAFE POSITION)
-========================= */
-.landing #output {
+/* TEXT BELOW MIC */
+#output {
   position: fixed;
-  bottom: 8%; /* 🔥 safely below mic */
-
+  bottom: 8%;
   width: 100%;
   text-align: center;
 
@@ -107,24 +72,8 @@ body.landing {
 
   opacity: 0;
   transition: opacity 0.3s ease;
-
-  z-index: 10;
 }
 
-.landing #output.active {
+#output.active {
   opacity: 1;
-}
-
-.landing #output.listening {
-  font-size: 16px;
-  opacity: 0.8;
-}
-
-/* =========================
-   DASHBOARD SAFE (ISOLATED)
-========================= */
-body.dashboard {
-  background: #111;
-  color: #fff;
-  padding: 20px;
 }
