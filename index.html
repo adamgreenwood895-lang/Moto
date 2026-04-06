@@ -1,24 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MOTO</title>
-
+  <title>Moto</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <div class="background"></div>
+<!-- BACKGROUND -->
+<div class="background"></div>
 
+<!-- TAP ZONE -->
+<div class="tap-zone" onclick="handleTap()">
+
+  <!-- MIC GLOW -->
   <div id="glow" class="glow"></div>
 
-  <div class="tap-zone" onclick="handleTap()"></div>
+  <!-- MIC BUTTON -->
+  <img src="mic.png" class="mic">
 
-  <div id="output"></div>
+</div>
 
-  <script src="script.js"></script>
+<!-- VOICE TEXT -->
+<div id="output">Tap to speak</div>
+
+<script src="script.js"></script>
 
 </body>
 </html>
