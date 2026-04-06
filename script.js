@@ -3,31 +3,66 @@ let listening = false;
 const output = document.getElementById("output");
 const glow = document.getElementById("glow");
 
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+
+recognition.continuous = false;
+recognition.interimResults = false;
+
 function toggleMic() {
   if (!listening) {
-    startListening();
+    recognition.start();
   } else {
-    stopListening();
+    recognition.stop();
   }
 }
 
-function startListening() {
+recognition.onstart = () => {
   listening = true;
-
   glow.classList.add("active");
 
   output.textContent = "Listening...";
   output.classList.add("active");
+};
 
-  setTimeout(() => {
-    stopListening();
-  }, 3000);
+recognition.onresult = (event) => {
+  const text = event.results[0][0].transcript.toLowerCase();
+
+  output.textContent = text;
+
+  handleVoice(text);
+};
+
+recognition.onend = () => {
+  listening = false;
+  glow.classList.remove("active");
+};
+
+function speak(text) {
+  const speech = new SpeechSynthesisUtterance(text);
+  speech.lang = "en-GB";
+  window.speechSynthesis.speak(speech);
+
+  output.textContent = text;
+  output.classList.add("active");
 }
 
-function stopListening() {
-  listening = false;
+function handleVoice(text) {
 
-  glow.classList.remove("active");
+  // 🔥 START SIMPLE FLOW
+  if (text.includes("book")) {
+    speak("What bike is it?");
+  }
 
-  output.classList.remove("active");
+  else if (text.includes("yamaha") || text.includes("honda")) {
+    speak("What is the issue?");
+  }
+
+  else if (text.includes("engine") || text.includes("brake")) {
+    speak("Job created");
+  }
+
+  else {
+    speak("Command not recognised");
+  }
 }
