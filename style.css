@@ -42,16 +42,22 @@ body {
 
 /* MIC */
 .mic {
-  font-size: 60px;
+  position: relative;
   z-index: 2;
+  font-size: 60px;
+  color: white;
 }
 
-/* GLOW */
 .glow {
   position: absolute;
   width: 180px;
   height: 180px;
   border-radius: 50%;
+
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
   background: rgba(255,140,40,0.25);
   opacity: 0;
   z-index: 1;
