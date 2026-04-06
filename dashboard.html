@@ -8,66 +8,61 @@
 <body>
 
 <div class="dashboard">
+  <h1>Workshop Dashboard</h1>
 
-    <h1>Workshop Dashboard</h1>
+  <div id="jobList"></div>
 
-    <div id="jobList"></div>
-
-    <button onclick="goBack()">← Back</button>
-
+  <button onclick="goBack()">← Back</button>
 </div>
 
 <script>
-
 function getJobs() {
-    return JSON.parse(localStorage.getItem("jobs")) || [];
+  return JSON.parse(localStorage.getItem("jobs")) || [];
 }
 
 function renderJobs() {
-    const jobs = getJobs();
-    const container = document.getElementById("jobList");
+  const jobs = getJobs();
+  const container = document.getElementById("jobList");
 
-    container.innerHTML = "";
+  container.innerHTML = "";
 
-    if (jobs.length === 0) {
-        container.innerHTML = "<p>No jobs yet</p>";
-        return;
-    }
+  if (jobs.length === 0) {
+    container.innerHTML = "<p>No jobs yet</p>";
+    return;
+  }
 
-    jobs.forEach(job => {
-        const div = document.createElement("div");
-        div.className = "job";
+  jobs.forEach(job => {
+    const div = document.createElement("div");
+    div.className = "job";
 
-        div.innerHTML = `
-            <p><strong>${job.reference}</strong></p>
-            <p>${job.description}</p>
-            <span>Status: ${job.status}</span><br>
-            <button onclick="completeJob(${job.id})">Mark Ready</button>
-        `;
+    div.innerHTML = `
+      <p><strong>${job.reference}</strong></p>
+      <p>${job.description}</p>
+      <span>Status: ${job.status}</span>
+      <button onclick="completeJob(${job.id})">Mark Ready</button>
+    `;
 
-        container.appendChild(div);
-    });
+    container.appendChild(div);
+  });
 }
 
 function completeJob(id) {
-    let jobs = getJobs();
+  let jobs = getJobs();
 
-    jobs = jobs.map(j => {
-        if (j.id === id) j.status = "Ready";
-        return j;
-    });
+  jobs = jobs.map(j => {
+    if (j.id === id) j.status = "Ready";
+    return j;
+  });
 
-    localStorage.setItem("jobs", JSON.stringify(jobs));
-
-    renderJobs();
+  localStorage.setItem("jobs", JSON.stringify(jobs));
+  renderJobs();
 }
 
 function goBack() {
-    window.location.href = "index.html";
+  window.location.href = "index.html";
 }
 
 renderJobs();
-
 </script>
 
 </body>
