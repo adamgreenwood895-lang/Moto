@@ -69,13 +69,18 @@ body {
 
 /* TEXT BELOW MIC */
 #output {
-  position: fixed;
-  bottom: 8%;
+  position: absolute;
+  bottom: 15%;
   width: 100%;
   text-align: center;
 
-  font-size: 18px;
-  color: white;
+  font-size: 20px;
+  font-weight: 500;
+
+  color: rgba(255, 210, 140, 0.95);
+
+  text-shadow:
+    0 0 10px rgba(255, 150, 50, 0.5);
 
   opacity: 0;
   transition: opacity 0.3s ease;
