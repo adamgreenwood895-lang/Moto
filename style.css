@@ -38,6 +38,8 @@ body {
   /* 🔥 IMPORTANT */
   background: transparent;
   border: none;
+/* ✅ ADD THIS */
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* MIC */
