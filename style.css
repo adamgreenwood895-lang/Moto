@@ -1,4 +1,3 @@
-/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -16,13 +15,28 @@ body {
 /* BACKGROUND */
 .background {
   position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   background: url("bg-clean.png") no-repeat center center;
   background-size: cover;
   z-index: -1;
+}
+
+/* HERO */
+#hero {
+  position: absolute;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+  color: #ffb366;
+}
+
+#hero h1 {
+  font-size: 40px;
+}
+
+#hero p {
+  font-size: 18px;
 }
 
 /* TAP ZONE */
@@ -33,42 +47,32 @@ body {
   transform: translateX(-50%);
   width: 200px;
   height: 200px;
-
   cursor: pointer;
-  background: transparent;
-  border: none;
-
-  user-select: none;
-  touch-action: manipulation;
 }
 
-/* PRESS EFFECT */
 .tap-zone:active {
   transform: translateX(-50%) scale(0.95);
 }
 
 /* REMOVE OUTLINE */
-.tap-zone,
-.tap-zone * {
+.tap-zone, .tap-zone * {
   outline: none !important;
 }
 
-/* GLOW EFFECT */
+/* GLOW */
 .glow {
   position: absolute;
   width: 180px;
   height: 180px;
   border-radius: 50%;
-
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 
-  background: radial-gradient(
-    circle,
-    rgba(255,140,40,0.6) 0%,
-    rgba(255,140,40,0.2) 40%,
-    transparent 70%
+  background: radial-gradient(circle,
+    rgba(255,140,40,0.6),
+    rgba(255,140,40,0.2),
+    transparent
   );
 
   opacity: 0;
@@ -81,28 +85,23 @@ body {
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); opacity: 0.6; }
-  50% { transform: scale(1.15); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.6; }
+  0% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.15); }
+  100% { transform: translate(-50%, -50%) scale(1); }
 }
 
-/* OUTPUT TEXT */
+/* OUTPUT */
 #output {
   position: absolute;
-  bottom: 20%;
+  bottom: 18%;
   width: 100%;
   text-align: center;
 
   font-size: 26px;
   font-weight: 600;
-
-  color: rgba(255, 200, 120, 1);
-  text-shadow: 0 0 12px rgba(255, 150, 50, 0.8);
+  color: #ffb366;
 
   opacity: 0;
-  transition: opacity 0.3s ease;
-
-  z-index: 10;
 }
 
 #output.active {
