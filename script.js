@@ -1,184 +1,192 @@
 let listening = false;
 let recognition;
 
-// ===== STATE =====
-let state = "idle";
-
-let job = {
-  customer: "",
-  bike: "",
-  description: ""
+// ===== JOB FLOW STATE =====
+let jobFlow = {
+    active: false,
+    step: null,
+    data: {}
 };
 
 // ===== MAIN TAP =====
 function handleTap() {
-  const glow = document.getElementById("glow");
-  const output = document.getElementById("output");
-  const hero = document.getElementById("hero");
+    const glow = document.getElementById("glow");
+    const output = document.getElementById("output");
 
-  if (!("webkitSpeechRecognition" in window)) {
-    alert("Speech recognition not supported");
-    return;
-  }
+    if (!("webkitSpeechRecognition" in window)) {
+        alert("Speech recognition not supported");
+        return;
+    }
 
-  if (!listening) {
+    if (!listening) {
+        recognition = new webkitSpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
 
-    // Hide hero (clean UI)
-    if (hero) hero.classList.add("hidden");
+        recognition.onstart = () => {
+            listening = true;
+            glow.classList.add("active");
 
-    recognition = new webkitSpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = false;
+            output.textContent = "Listening...";
+            output.classList.add("active", "listening");
+        };
 
-    recognition.onstart = () => {
-      listening = true;
-      glow.classList.add("active");
+        recognition.onresult = (event) => {
+            const text = event.results[0][0].transcript.toLowerCase();
 
-      output.textContent = "Listening...";
-      output.classList.add("active", "listening");
-    };
+            console.log("User said:", text);
 
-    recognition.onresult = (event) => {
-      const text = event.results[0][0].transcript.toLowerCase();
+            handleVoice(text);
+        };
 
-      console.log("User said:", text);
+        recognition.onend = () => {
+            listening = false;
+            glow.classList.remove("active");
+        };
 
-      handleVoice(text, output);
-    };
+        recognition.start();
 
-    recognition.onend = () => {
-      listening = false;
-      glow.classList.remove("active");
-    };
-
-    recognition.onerror = () => {
-      listening = false;
-      glow.classList.remove("active");
-    };
-
-    recognition.start();
-
-  } else {
-    recognition.stop();
-    listening = false;
-    glow.classList.remove("active");
-  }
+    } else {
+        recognition.stop();
+        listening = false;
+        glow.classList.remove("active");
+    }
 }
 
 // ===== VOICE ENGINE =====
-function handleVoice(text, output) {
+function handleVoice(text) {
+    const output = document.getElementById("output");
 
-  output.classList.remove("listening");
+    // ===== JOB CREATION FLOW =====
+    if (jobFlow.active) {
 
-  // ===== DASHBOARD COMMAND =====
-  if (
-    text.includes("dashboard") ||
-    text.includes("view jobs") ||
-    text.includes("check jobs")
-  ) {
-    output.textContent = "Opening dashboard...";
+        if (jobFlow.step === "name") {
+            jobFlow.data.customer = text;
+            jobFlow.step = "bike";
 
-    setTimeout(() => {
-      window.location.href = "dashboard.html";
-    }, 1000);
+            speak("Bike make and model?");
+            return;
+        }
 
-    return;
-  }
+        if (jobFlow.step === "bike") {
+            jobFlow.data.bike = text;
+            jobFlow.step = "job";
 
-  // ===== START JOB CREATION =====
-  if (state === "idle") {
+            speak("Brief job description?");
+            return;
+        }
 
-    if (
-      text.includes("job") &&
-      (text.includes("create") ||
-       text.includes("add") ||
-       text.includes("book") ||
-       text.includes("new"))
-    ) {
-      state = "awaiting_customer";
-      output.textContent = "Customer name?";
-      return;
+        if (jobFlow.step === "job") {
+            jobFlow.data.description = text;
+
+            // CREATE JOB
+            const reference = `${jobFlow.data.customer} ${jobFlow.data.bike}`;
+
+            let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+
+            jobs.push({
+                id: Date.now(),
+                reference: reference,
+                description: jobFlow.data.description,
+                status: "New"
+            });
+
+            localStorage.setItem("jobs", JSON.stringify(jobs));
+
+            speak(`Job created under ${reference}`);
+
+            // RESET FLOW
+            jobFlow = { active: false, step: null, data: {} };
+
+            // OPTIONAL: go to dashboard after 1.5s
+            setTimeout(() => {
+                window.location.href = "dashboard.html";
+            }, 1500);
+
+            return;
+        }
     }
 
-    output.textContent = "Command not recognised";
-    fadeOut(output);
-    return;
-  }
+    // ===== START JOB CREATION =====
+    if (
+        text.includes("job") &&
+        (text.includes("create") ||
+         text.includes("add") ||
+         text.includes("book") ||
+         text.includes("new"))
+    ) {
+        jobFlow.active = true;
+        jobFlow.step = "name";
+        jobFlow.data = {};
 
-  // ===== CUSTOMER =====
-  if (state === "awaiting_customer") {
-    job.customer = text;
-    state = "awaiting_bike";
+        speak("Customer name?");
+        return;
+    }
 
-    output.textContent = "Bike make and model?";
-    return;
-  }
+    // ===== UPDATE JOB =====
+    if (text.includes("update")) {
 
-  // ===== BIKE =====
-  if (state === "awaiting_bike") {
-    job.bike = text;
-    state = "awaiting_description";
+        let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+        let found = false;
 
-    output.textContent = "Job description?";
-    return;
-  }
+        jobs = jobs.map(job => {
+            const ref = job.reference.toLowerCase();
 
-  // ===== DESCRIPTION + SAVE =====
-  if (state === "awaiting_description") {
-    job.description = text;
+            if (text.includes(ref)) {
+                found = true;
 
-    state = "idle";
+                let newDesc = text
+                    .replace("update", "")
+                    .replace(ref, "")
+                    .trim();
 
-    const ref =
-      capitalize(job.customer.split(" ")[0]) +
-      " " +
-      capitalizeWords(job.bike);
+                job.description = newDesc || job.description;
+                job.status = "Updated";
+            }
 
-    const newJob = {
-      id: Date.now(),
-      customer: job.customer,
-      bike: job.bike,
-      description: job.description,
-      reference: ref,
-      status: "In Progress"
-    };
+            return job;
+        });
 
-    // SAVE
-    let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
-    jobs.push(newJob);
-    localStorage.setItem("jobs", JSON.stringify(jobs));
+        localStorage.setItem("jobs", JSON.stringify(jobs));
 
-    console.log("SAVED JOB:", newJob);
+        if (found) {
+            speak("Job updated");
+        } else {
+            speak("Job not found");
+        }
 
-    output.textContent = `Job created: ${ref}`;
+        return;
+    }
 
-    fadeOut(output);
+    // ===== OPEN DASHBOARD =====
+    if (
+        text.includes("dashboard") ||
+        text.includes("check job") ||
+        text.includes("customer job")
+    ) {
+        speak("Opening dashboard");
 
-    // Reset job
-    job = {
-      customer: "",
-      bike: "",
-      description: ""
-    };
+        setTimeout(() => {
+            window.location.href = "dashboard.html";
+        }, 1000);
 
-    return;
-  }
+        return;
+    }
+
+    // ===== FALLBACK =====
+    speak("Command not recognised");
 }
 
-// ===== HELPERS =====
-function fadeOut(output) {
-  setTimeout(() => {
-    output.classList.remove("active");
-  }, 3000);
-}
+// ===== UI OUTPUT =====
+function speak(message) {
+    const output = document.getElementById("output");
 
-function capitalize(text) {
-  return text.charAt(0).toUpperCase() + text.slice(1);
-}
+    output.textContent = message;
+    output.classList.remove("listening");
+    output.classList.add("active");
 
-function capitalizeWords(text) {
-  return text
-    .split(" ")
-    .map(word => capitalize(word))
-    .join(" ");
+    // fade out after delay
+    setTimeout(() => {
+        output.classList.remove("active");
+    }, 2500);
 }
