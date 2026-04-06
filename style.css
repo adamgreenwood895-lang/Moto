@@ -32,11 +32,12 @@ body {
   transform: translateX(-50%);
   width: 200px;
   height: 200px;
+
   cursor: pointer;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* 🔥 IMPORTANT */
+  background: transparent;
+  border: none;
 }
 
 /* MIC */
