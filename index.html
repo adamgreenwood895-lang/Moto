@@ -2,16 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MOTO</title>
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
-<body style="background:black; color:white; text-align:center;">
+<body class="landing">
 
-<h1>MOTO LOADED</h1>
+  <!-- Background -->
+  <div class="background"></div>
 
-<script>
-console.log("JS WORKING");
-</script>
+  <!-- Glow -->
+  <div id="glow" class="glow"></div>
+
+  <!-- Tap Zone -->
+  <div class="tap-zone" onclick="handleTap()"></div>
+
+  <!-- Voice Output -->
+  <div id="output"></div>
+
+  <script src="script.js"></script>
 
 </body>
 </html>
