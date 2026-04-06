@@ -1,182 +1,33 @@
 let listening = false;
-let recognition;
 
-function handleTap() {
-  const glow = document.getElementById("glow");
-  const output = document.getElementById("output");
+const output = document.getElementById("output");
+const glow = document.getElementById("glow");
 
-  if (!("webkitSpeechRecognition" in window)) {
-    alert("Speech not supported");
-    return;
-  }
-
+function toggleMic() {
   if (!listening) {
-    recognition = new webkitSpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = false;
-
-    recognition.onstart = () => {
-      listening = true;
-
-      glow.classList.add("active");
-
-      output.textContent = "Listening...";
-      output.classList.add("active");
-    };
-
-    recognition.onresult = (event) => {
-      const text = event.results[0][0].transcript;
-
-      output.textContent = text;
-
-      setTimeout(() => {
-        output.classList.remove("active");
-      }, 2000);
-    };
-
-    recognition.onend = () => {
-      listening = false;
-      glow.classList.remove("active");
-    };
-
-    recognition.start();
-
+    startListening();
   } else {
-    recognition.stop();
-    listening = false;
-    glow.classList.remove("active");
+    stopListening();
   }
 }
 
-// ===== VOICE ENGINE =====
-function handleVoice(text) {
-    const output = document.getElementById("output");
+function startListening() {
+  listening = true;
 
-    // ===== JOB CREATION FLOW =====
-    if (jobFlow.active) {
+  glow.classList.add("active");
 
-        if (jobFlow.step === "name") {
-            jobFlow.data.customer = text;
-            jobFlow.step = "bike";
+  output.textContent = "Listening...";
+  output.classList.add("active");
 
-            speak("Bike make and model?");
-            return;
-        }
-
-        if (jobFlow.step === "bike") {
-            jobFlow.data.bike = text;
-            jobFlow.step = "job";
-
-            speak("Brief job description?");
-            return;
-        }
-
-        if (jobFlow.step === "job") {
-            jobFlow.data.description = text;
-
-            const reference = `${jobFlow.data.customer} ${jobFlow.data.bike}`;
-
-            let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
-
-            jobs.push({
-                id: Date.now(),
-                reference: reference,
-                description: jobFlow.data.description,
-                status: "New"
-            });
-
-            localStorage.setItem("jobs", JSON.stringify(jobs));
-
-            speak(`Job created under ${reference}`);
-
-            jobFlow = { active: false, step: null, data: {} };
-
-            setTimeout(() => {
-                window.location.href = "dashboard.html";
-            }, 1500);
-
-            return;
-        }
-    }
-
-    // ===== START JOB CREATION =====
-    if (
-        text.includes("job") &&
-        (text.includes("create") ||
-         text.includes("add") ||
-         text.includes("book") ||
-         text.includes("new"))
-    ) {
-        jobFlow.active = true;
-        jobFlow.step = "name";
-        jobFlow.data = {};
-
-        speak("Customer name?");
-        return;
-    }
-
-    // ===== UPDATE JOB =====
-    if (text.includes("update")) {
-
-        let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
-        let found = false;
-
-        jobs = jobs.map(job => {
-            const ref = job.reference.toLowerCase();
-
-            if (text.includes(ref)) {
-                found = true;
-
-                let newDesc = text
-                    .replace("update", "")
-                    .replace(ref, "")
-                    .trim();
-
-                job.description = newDesc || job.description;
-                job.status = "Updated";
-            }
-
-            return job;
-        });
-
-        localStorage.setItem("jobs", JSON.stringify(jobs));
-
-        if (found) {
-            speak("Job updated");
-        } else {
-            speak("Job not found");
-        }
-
-        return;
-    }
-
-    // ===== OPEN DASHBOARD =====
-    if (
-        text.includes("dashboard") ||
-        text.includes("check job") ||
-        text.includes("customer job")
-    ) {
-        speak("Opening dashboard");
-
-        setTimeout(() => {
-            window.location.href = "dashboard.html";
-        }, 1000);
-
-        return;
-    }
-
-    // ===== FALLBACK =====
-    speak("Command not recognised");
+  setTimeout(() => {
+    stopListening();
+  }, 3000);
 }
 
-// ===== OUTPUT =====
-function speak(message) {
-    const output = document.getElementById("output");
+function stopListening() {
+  listening = false;
 
-    output.textContent = message;
-    output.classList.add("active");
+  glow.classList.remove("active");
 
-    setTimeout(() => {
-        output.classList.remove("active");
-    }, 2500);
-              }
+  output.classList.remove("active");
+}
