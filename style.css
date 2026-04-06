@@ -11,10 +11,11 @@
    BODY
 ========================= */
 body {
-  background: black;
-  height: 100vh;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
+    background: black;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    color: white; /* ✅ THIS fixes black text issue */
 }
 
 /* =========================
