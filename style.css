@@ -39,9 +39,11 @@ body {
   background: transparent;
   border: none;
 /* ✅ ADD THIS */
+.tap-zone {
   -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  touch-action: manipulation;
 }
-
 /* MIC */
 .mic {
   position: relative;
@@ -98,4 +100,14 @@ body {
 
 #output.active {
   opacity: 1;
+}
+/* 🚫 REMOVE TAP HIGHLIGHT (mobile fix) */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 🚫 REMOVE CLICK OUTLINE */
+.tap-zone,
+.tap-zone * {
+  outline: none !important;
 }
