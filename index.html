@@ -7,19 +7,21 @@
 
 <body>
 
-<!-- BACKGROUND -->
 <div class="background"></div>
 
-<!-- TAP ZONE -->
-<div class="tap-zone" onclick="handleTap()">
-
-  <!-- MIC GLOW -->
-  <div id="glow" class="glow"></div>
-
+<!-- HERO TEXT -->
+<div id="hero">
+  <h1>Say it, done.</h1>
+  <p>We’ll handle the rest.</p>
 </div>
 
-<!-- VOICE TEXT -->
-<div id="output">Tap to speak</div>
+<!-- TAP ZONE -->
+<div class="tap-zone" onclick="toggleMic()">
+  <div id="glow" class="glow"></div>
+</div>
+
+<!-- OUTPUT TEXT -->
+<div id="output"></div>
 
 <script src="script.js"></script>
 
