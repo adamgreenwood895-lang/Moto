@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -34,27 +35,25 @@ body {
   height: 200px;
 
   cursor: pointer;
-
-  /* 🔥 IMPORTANT */
   background: transparent;
   border: none;
-/* ✅ ADD THIS */
-.tap-zone {
-  -webkit-tap-highlight-color: transparent;
+
   user-select: none;
   touch-action: manipulation;
 }
-  .tap-zone:active {
+
+/* PRESS EFFECT */
+.tap-zone:active {
   transform: translateX(-50%) scale(0.95);
-  }
-/* MIC */
-.mic {
-  position: relative;
-  z-index: 2;
-  font-size: 60px;
-  color: white;
 }
 
+/* REMOVE OUTLINE */
+.tap-zone,
+.tap-zone * {
+  outline: none !important;
+}
+
+/* GLOW EFFECT */
 .glow {
   position: absolute;
   width: 180px;
@@ -73,8 +72,8 @@ body {
   );
 
   opacity: 0;
-  pointer-events: none; /* 🔥 prevents tap interference */
-} 
+  pointer-events: none;
+}
 
 .glow.active {
   opacity: 1;
@@ -87,19 +86,18 @@ body {
   100% { transform: scale(1); opacity: 0.6; }
 }
 
-/* TEXT BELOW MIC */
+/* OUTPUT TEXT */
 #output {
   position: absolute;
-  bottom: 22%; /* 👈 move closer to mic */
+  bottom: 20%;
   width: 100%;
   text-align: center;
 
-  font-size: 22px;
-  font-weight: 500;
+  font-size: 26px;
+  font-weight: 600;
 
   color: rgba(255, 200, 120, 1);
-
-  text-shadow: 0 0 12px rgba(255, 150, 50, 0.6);
+  text-shadow: 0 0 12px rgba(255, 150, 50, 0.8);
 
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -109,14 +107,4 @@ body {
 
 #output.active {
   opacity: 1;
-}
-/* 🚫 REMOVE TAP HIGHLIGHT (mobile fix) */
-* {
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* 🚫 REMOVE CLICK OUTLINE */
-.tap-zone,
-.tap-zone * {
-  outline: none !important;
 }
