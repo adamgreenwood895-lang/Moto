@@ -1,56 +1,51 @@
 let listening = false;
 let recognition;
 
-// ===== JOB FLOW STATE =====
-let jobFlow = {
-    active: false,
-    step: null,
-    data: {}
-};
-
-// ===== MAIN TAP =====
 function handleTap() {
-    const glow = document.getElementById("glow");
-    const output = document.getElementById("output");
+  const glow = document.getElementById("glow");
+  const output = document.getElementById("output");
 
-    if (!("webkitSpeechRecognition" in window)) {
-        alert("Speech recognition not supported");
-        return;
-    }
+  if (!("webkitSpeechRecognition" in window)) {
+    alert("Speech not supported");
+    return;
+  }
 
-    if (!listening) {
-        recognition = new webkitSpeechRecognition();
-        recognition.continuous = false;
-        recognition.interimResults = false;
+  if (!listening) {
+    recognition = new webkitSpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
 
-        recognition.onstart = () => {
-            listening = true;
-            glow.classList.add("active");
+    recognition.onstart = () => {
+      listening = true;
 
-            output.textContent = "Listening...";
-            output.classList.add("active");
-        };
+      glow.classList.add("active");
 
-        recognition.onresult = (event) => {
-            const text = event.results[0][0].transcript.toLowerCase();
+      output.textContent = "Listening...";
+      output.classList.add("active");
+    };
 
-            console.log("User said:", text);
+    recognition.onresult = (event) => {
+      const text = event.results[0][0].transcript;
 
-            handleVoice(text); // 🔥 THIS IS THE KEY LINE
-        };
+      output.textContent = text;
 
-        recognition.onend = () => {
-            listening = false;
-            glow.classList.remove("active");
-        };
+      setTimeout(() => {
+        output.classList.remove("active");
+      }, 2000);
+    };
 
-        recognition.start();
+    recognition.onend = () => {
+      listening = false;
+      glow.classList.remove("active");
+    };
 
-    } else {
-        recognition.stop();
-        listening = false;
-        glow.classList.remove("active");
-    }
+    recognition.start();
+
+  } else {
+    recognition.stop();
+    listening = false;
+    glow.classList.remove("active");
+  }
 }
 
 // ===== VOICE ENGINE =====
