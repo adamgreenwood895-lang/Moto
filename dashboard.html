@@ -1,115 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="style.css">
-
-  <style>
-    body {
-      background: black;
-      color: #f5a623;
-      font-family: Arial;
-      padding: 20px;
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .job {
-      border: 1px solid rgba(255,170,60,0.3);
-      padding: 15px;
-      margin-bottom: 12px;
-      border-radius: 10px;
-      background: rgba(255,170,60,0.05);
-    }
-
-    .ref {
-      font-weight: bold;
-      font-size: 18px;
-      margin-bottom: 5px;
-    }
-
-    .desc {
-      opacity: 0.8;
-      margin-bottom: 8px;
-    }
-
-    .status {
-      font-size: 14px;
-      opacity: 0.6;
-    }
-
-    button {
-      margin-top: 10px;
-      padding: 6px 10px;
-      background: #f5a623;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-  </style>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <h1>Workshop Dashboard</h1>
+<div class="dashboard">
 
-  <div id="jobList"></div>
+    <h1>Workshop Dashboard</h1>
 
-  <button onclick="goBack()">← Back</button>
+    <div id="jobList"></div>
 
-  <script>
+    <button onclick="goBack()">← Back</button>
 
-    function getJobs() {
-      return JSON.parse(localStorage.getItem("jobs")) || [];
+</div>
+
+<script>
+
+function getJobs() {
+    return JSON.parse(localStorage.getItem("jobs")) || [];
+}
+
+function renderJobs() {
+    const jobs = getJobs();
+    const container = document.getElementById("jobList");
+
+    container.innerHTML = "";
+
+    if (jobs.length === 0) {
+        container.innerHTML = "<p>No jobs yet</p>";
+        return;
     }
 
-    function renderJobs() {
-      const jobs = getJobs();
-      const container = document.getElementById("jobList");
-
-      container.innerHTML = "";
-
-      // Newest first
-      jobs.reverse().forEach(job => {
+    jobs.forEach(job => {
         const div = document.createElement("div");
         div.className = "job";
 
         div.innerHTML = `
-          <div class="ref">${job.reference}</div>
-          <div class="desc">${job.description}</div>
-          <div class="status">Status: ${job.status}</div>
-          <button onclick="completeJob(${job.id})">Mark Complete</button>
+            <p><strong>${job.reference}</strong></p>
+            <p>${job.description}</p>
+            <span>Status: ${job.status}</span><br>
+            <button onclick="completeJob(${job.id})">Mark Ready</button>
         `;
 
         container.appendChild(div);
-      });
-    }
+    });
+}
 
-    function completeJob(id) {
-      let jobs = getJobs();
+function completeJob(id) {
+    let jobs = getJobs();
 
-      jobs = jobs.map(j => {
-        if (j.id === id) {
-          j.status = "Ready";
-        }
+    jobs = jobs.map(j => {
+        if (j.id === id) j.status = "Ready";
         return j;
-      });
+    });
 
-      localStorage.setItem("jobs", JSON.stringify(jobs));
-      renderJobs();
-    }
-
-    function goBack() {
-      window.location.href = "index.html";
-    }
+    localStorage.setItem("jobs", JSON.stringify(jobs));
 
     renderJobs();
+}
 
-  </script>
+function goBack() {
+    window.location.href = "index.html";
+}
+
+renderJobs();
+
+</script>
 
 </body>
 </html>
