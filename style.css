@@ -6,12 +6,7 @@
 }
 
 body {
-  background: black;
-  height: 100vh;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-}
-
+  background: black
 /* BACKGROUND */
 .background {
   position: fixed;
