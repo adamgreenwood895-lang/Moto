@@ -15,8 +15,9 @@ if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
 
   recognition.onstart = () => {
     listening = true;
-    output.textContent = "Listening...";
     statusEl.textContent = "Speak a command now.";
+    output.textContent = "Listening...";
+    tapZone.classList.add("listening");
   };
 
   recognition.onresult = (event) => {
@@ -31,6 +32,7 @@ if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
 
   recognition.onend = () => {
     listening = false;
+    tapZone.classList.remove("listening");
     if (!output.textContent || output.textContent === "Listening...") {
       output.textContent = "Tap the mic and say a command.";
     }
