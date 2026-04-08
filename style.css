@@ -66,13 +66,3 @@ html, body {
   text-align: center;
 }
 
-.status {
-  position: absolute;
-  left: 50%;
-  bottom: 42px;
-  transform: translateX(-50%);
-  min-height: 24px;
-  font-size: clamp(12px, 2vw, 14px);
-  color: rgba(255,210,160,.72);
-  text-align: center;
-}
