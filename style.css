@@ -12,7 +12,7 @@ html, body {
   position: fixed;
   inset: 0;
   background: url('assets/bgnew.png') center center / cover no-repeat;
-  filter: brightness(0.55) saturate(1.15);
+  filter: brightness(0.80) saturate(1.15);
   transform: scale(1.02);
 }
 
