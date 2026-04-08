@@ -26,9 +26,9 @@ html, body {
 .tap-zone {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 53.5%;
   transform: translate(-50%, -50%);
-  width: min(38vw, 160px);
+  width: min(36vw, 150px);
   aspect-ratio: 1;
   border: none;
   background: transparent;
