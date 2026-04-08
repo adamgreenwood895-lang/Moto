@@ -2,7 +2,11 @@ let listening = false;
 
 const glow = document.getElementById("glow");
 const output = document.getElementById("output");
+const micBtn = document.getElementById("micBtn");
 
+micBtn.addEventListener("click", () => {
+  alert("Mic activated");
+});
 let recognition;
 
 if ("webkitSpeechRecognition" in window) {
