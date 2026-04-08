@@ -1,50 +1,52 @@
 let listening = false;
 
-const glow = document.getElementById("glow");
+const micButton = document.getElementById("micButton");
 const output = document.getElementById("output");
-const micBtn = document.getElementById("micBtn");
+const statusEl = document.getElementById("status");
 
-micBtn.addEventListener("click", () => {
-  alert("Mic activated");
-});
-let recognition;
+let recognition = null;
 
-if ("webkitSpeechRecognition" in window) {
-  recognition = new webkitSpeechRecognition();
+if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SpeechRecognition();
   recognition.continuous = false;
   recognition.interimResults = false;
+  recognition.lang = "en-GB";
 
   recognition.onstart = () => {
     listening = true;
-    glow.classList.add("active");
-
+    micButton.classList.add("listening");
     output.textContent = "Listening...";
-    output.classList.add("active");
+    statusEl.textContent = "Speak a command now.";
   };
 
   recognition.onresult = (event) => {
     const text = event.results[0][0].transcript;
-
     output.textContent = text;
+    statusEl.textContent = "Command captured.";
+  };
 
-    setTimeout(() => {
-      output.classList.remove("active");
-    }, 2500);
+  recognition.onerror = () => {
+    statusEl.textContent = "Mic error. Try again.";
   };
 
   recognition.onend = () => {
     listening = false;
-    glow.classList.remove("active");
+    micButton.classList.remove("listening");
+    if (!output.textContent || output.textContent === "Listening...") {
+      output.textContent = "Tap the mic and say a command.";
+    }
   };
+} else {
+  statusEl.textContent = "Speech recognition is not supported in this browser.";
 }
 
-function toggleMic() {
+micButton.addEventListener("click", () => {
   if (!recognition) return;
 
   if (!listening) {
     recognition.start();
   } else {
     recognition.stop();
-    glow.classList.remove("active");
   }
-}
+});
