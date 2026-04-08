@@ -43,10 +43,6 @@ if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
 
 micButton.addEventListener("click", () => {
   if (!recognition) return;
-
-  if (!listening) {
-    recognition.start();
-  } else {
-    recognition.stop();
-  }
+  if (!listening) recognition.start();
+  else recognition.stop();
 });
