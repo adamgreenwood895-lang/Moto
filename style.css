@@ -51,10 +51,10 @@ html, body {
 .output {
   position: absolute;
   left: 50%;
-  bottom: 15%;
+  bottom: 7%;
   transform: translateX(-50%);
   width: min(92vw, 520px);
-  min-height: 52px;
+  min-height: 40px;
   padding: 12px 18px;
   border-radius: 14px;
   font-size: clamp(16px, 2.8vw, 20px);
