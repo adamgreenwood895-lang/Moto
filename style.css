@@ -7,11 +7,14 @@ html, body {
   background: #000;
   color: #fff;
 }
-
 .bg {
   position: fixed;
   inset: 0;
-  background: url('bgnew.png') center center / cover no-repeat;
+  background-image: url('assets/bgnew.png');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #000;
   filter: brightness(0.55) saturate(1.15);
   transform: scale(1.02);
 }
