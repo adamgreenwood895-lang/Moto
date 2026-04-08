@@ -1,4 +1,118 @@
-/* RESET */
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
+}
+
+.bg {
+  position: fixed;
+  inset: 0;
+  background: url('bg.jpeg') center center / cover no-repeat;
+  filter: brightness(0.55) saturate(1.15);
+  transform: scale(1.02);
+}
+
+.voice-ui {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 48px 20px 36px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.brand {
+  margin-top: 8px;
+}
+
+.logo {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: #ffb15a;
+  text-shadow: 0 0 18px rgba(255, 153, 51, 0.9);
+  margin-bottom: 34px;
+}
+
+.headline {
+  font-size: 34px;
+  font-weight: 700;
+  color: #ffbf78;
+  margin-bottom: 10px;
+}
+
+.subhead {
+  font-size: 18px;
+  color: rgba(255, 220, 180, 0.82);
+}
+
+.mic-button {
+  position: relative;
+  width: 210px;
+  height: 210px;
+  border: none;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(60, 30, 10, 0.95), rgba(15, 10, 8, 0.98));
+  box-shadow:
+    0 0 0 2px rgba(255, 170, 60, 0.35),
+    0 0 35px rgba(255, 120, 0, 0.35),
+    inset 0 0 20px rgba(255, 160, 60, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+}
+
+.mic-ring {
+  position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 160, 50, 0.6);
+  box-shadow:
+    0 0 25px rgba(255, 135, 20, 0.5),
+    inset 0 0 20px rgba(255, 180, 80, 0.18);
+}
+
+.mic-button.listening {
+  box-shadow:
+    0 0 0 2px rgba(255, 180, 80, 0.7),
+    0 0 45px rgba(255, 140, 0, 0.75),
+    inset 0 0 30px rgba(255, 180, 80, 0.2);
+}
+
+.mic-icon {
+  font-size: 68px;
+  filter: drop-shadow(0 0 8px rgba(120, 180, 255, 0.95));
+  z-index: 1;
+}
+
+.output {
+  min-height: 52px;
+  max-width: 90%;
+  padding: 12px 18px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.28);
+  color: rgba(255, 235, 220, 0.92);
+  font-size: 18px;
+  line-height: 1.4;
+  backdrop-filter: blur(6px);
+}
+
+.status {
+  min-height: 24px;
+  font-size: 14px;
+  color: rgba(255, 210, 160, 0.72);
+}/* RESET */
 * {
   margin: 0;
   padding: 0;
