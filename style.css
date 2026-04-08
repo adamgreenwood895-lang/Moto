@@ -11,7 +11,7 @@ html, body {
 .bg {
   position: fixed;
   inset: 0;
-  background: url('bg.jpeg') center center / cover no-repeat;
+  background: url('bgnew.png') center center / cover no-repeat;
   filter: brightness(0.55) saturate(1.15);
   transform: scale(1.02);
 }
