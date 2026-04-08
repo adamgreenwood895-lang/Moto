@@ -24,43 +24,25 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 22px;
-  padding: 24px;
+  justify-content: flex-end;
+  gap: 18px;
+  padding: 24px 24px 34px;
   box-sizing: border-box;
   text-align: center;
 }
 
-.mic-button {
-  position: relative;
-  width: min(58vw, 220px);
+.tap-zone {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(52vw, 220px);
   aspect-ratio: 1;
   border: none;
-  border-radius: 50%;
-  background: radial-gradient(circle at 50% 50%, rgba(60,30,10,.95), rgba(15,10,8,.98));
-  box-shadow: 0 0 0 2px rgba(255,170,60,.35), 0 0 35px rgba(255,120,0,.35), inset 0 0 20px rgba(255,160,60,.14);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: transparent;
   cursor: pointer;
-}
-
-.mic-ring {
-  position: absolute;
-  inset: 12px;
   border-radius: 50%;
-  border: 2px solid rgba(255,160,50,.6);
-  box-shadow: 0 0 25px rgba(255,135,20,.5), inset 0 0 20px rgba(255,180,80,.18);
-}
-
-.mic-button.listening {
-  box-shadow: 0 0 0 2px rgba(255,180,80,.7), 0 0 45px rgba(255,140,0,.75), inset 0 0 30px rgba(255,180,80,.2);
-}
-
-.mic-icon {
-  font-size: clamp(48px, 9vw, 72px);
-  filter: drop-shadow(0 0 8px rgba(120,180,255,.95));
-  z-index: 1;
+  z-index: 5;
 }
 
 .output {
@@ -87,4 +69,4 @@ html, body {
     justify-content: flex-end;
     padding-bottom: 28px;
   }
-}
+             }
