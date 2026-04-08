@@ -3,31 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <title>MOTO</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
-  <!-- BACKGROUND -->
-  <div class="bg" id="bg"></div>
+  <div class="bg"></div>
 
-  <!-- UI -->
   <div class="voice-ui">
+    <div class="brand">
+      <div class="logo">MOTO</div>
+      <div class="headline">Say it, done.</div>
+      <div class="subhead">We’ll handle the rest.</div>
+    </div>
 
-    <!-- TAP ZONE -->
-    <div class="orb-hitbox" id="orb"></div>
+    <button class="mic-button" id="micButton" type="button" aria-label="Tap to speak">
+      <span class="mic-ring"></span>
+      <span class="mic-icon">🎤</span>
+    </button>
 
-
-  <!-- MIC -->
-  <div class="tap-zone" onclick="toggleMic()">
-    <div id="glow" class="glow"></div>
-
-   <!-- OUTPUT -->
-  <div id="output"></div>
-    
+    <div class="output" id="output">Tap the mic and say a command.</div>
+    <div class="status" id="status"></div>
   </div>
 
   <script src="script.js"></script>
-
 </body>
 </html>
