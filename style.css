@@ -18,21 +18,20 @@ body {
 /* TAP ZONE */
 .tap-zone {
   position: absolute;
-  bottom: 25%;
+
+  top: 60%;              /* 👈 adjust this, not bottom */
   left: 50%;
-  transform: translateX(-50%);
-  width: 200px;
-  height: 200px;
+  transform: translate(-50%, -50%);
+
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+
   cursor: pointer;
-}
 
-.tap-zone:active {
-  transform: translateX(-50%) scale(0.95);
-}
+  background: rgba(0,255,0,0.2); /* keep for now (debug) */
+  box-shadow: none;
 
-/* REMOVE OUTLINE */
-.tap-zone, .tap-zone * {
-  outline: none !important;
 }
 
 /* GLOW */
