@@ -51,7 +51,7 @@ html, body {
 .output {
   position: absolute;
   left: 50%;
-  bottom: 75px;
+  bottom: 15%;
   transform: translateX(-50%);
   width: min(92vw, 520px);
   min-height: 52px;
