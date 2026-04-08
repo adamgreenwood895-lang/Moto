@@ -1,6 +1,6 @@
 let listening = false;
 
-const micButton = document.getElementById("micButton");
+const tapZone = document.getElementById("tapZone");
 const output = document.getElementById("output");
 const statusEl = document.getElementById("status");
 
@@ -15,7 +15,6 @@ if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
 
   recognition.onstart = () => {
     listening = true;
-    micButton.classList.add("listening");
     output.textContent = "Listening...";
     statusEl.textContent = "Speak a command now.";
   };
@@ -32,7 +31,6 @@ if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
 
   recognition.onend = () => {
     listening = false;
-    micButton.classList.remove("listening");
     if (!output.textContent || output.textContent === "Listening...") {
       output.textContent = "Tap the mic and say a command.";
     }
@@ -41,7 +39,7 @@ if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
   statusEl.textContent = "Speech recognition is not supported in this browser.";
 }
 
-micButton.addEventListener("click", () => {
+tapZone.addEventListener("click", () => {
   if (!recognition) return;
   if (!listening) recognition.start();
   else recognition.stop();
