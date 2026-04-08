@@ -51,7 +51,7 @@ html, body {
 .output {
   position: absolute;
   left: 50%;
-  bottom: 84px;
+  bottom: 88px;
   transform: translateX(-50%);
   width: min(92vw, 520px);
   min-height: 52px;
@@ -59,7 +59,6 @@ html, body {
   border-radius: 14px;
   font-size: clamp(16px, 2.8vw, 20px);
   line-height: 1.4;
-  backdrop-filter: blur(6px);
   text-align: center;
 }
 
