@@ -9,31 +9,19 @@ body {
   height: 100vh;
   overflow: hidden;
   font-family: Arial, sans-serif;
-  background: #05070d;
   position: relative;
 }
 
+/* YOUR BG IMAGE */
 .bg {
   position: fixed;
   inset: 0;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(0,140,255,0.12), transparent 35%),
-    radial-gradient(circle at 80% 30%, rgba(0,180,255,0.08), transparent 35%),
-    radial-gradient(circle at 50% 80%, rgba(255,255,255,0.04), transparent 45%),
-    linear-gradient(180deg, #05070d 0%, #0b1220 100%);
+  background: url('assets/bgnew.png') center center / cover no-repeat;
+  filter: brightness(0.80) saturate(1.15);
+  transform: scale(1.02);
 }
 
-.bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-  background-size: 40px 40px;
-  opacity: 0.35;
-}
-
+/* UI CENTER */
 .voice-ui {
   position: relative;
   z-index: 2;
@@ -43,72 +31,40 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 24px;
 }
 
+/* TAP ZONE */
 .tap-zone {
   width: 180px;
   height: 180px;
+  border-radius: 50%;
   border: none;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.02);
-  backdrop-filter: blur(12px);
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.05),
-    0 0 40px rgba(0,140,255,0.12),
-    inset 0 0 40px rgba(255,255,255,0.03);
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
   cursor: pointer;
-  transition: all 0.25s ease;
-  position: relative;
-}
-
-.tap-zone::before {
-  content: "";
-  position: absolute;
-  inset: 18px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.06);
-}
-
-.tap-zone:hover {
-  transform: scale(1.03);
-}
-
-.tap-zone:active {
-  transform: scale(0.98);
-}
-
-.tap-zone:focus,
-.tap-zone:focus-visible {
-  outline: none;
+  transition: all 0.2s ease;
 }
 
 .tap-zone.listening {
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.08),
-    0 0 30px rgba(0,180,255,0.25),
-    0 0 60px rgba(0,180,255,0.2),
-    inset 0 0 30px rgba(255,255,255,0.05);
-  animation: pulse 1.6s ease-in-out infinite;
+  box-shadow: 0 0 40px rgba(0,150,255,0.5);
+  animation: pulse 1.5s infinite;
 }
 
+.tap-zone:active {
+  transform: scale(0.95);
+}
+
+/* OUTPUT TEXT */
 .output {
-  margin-top: 32px;
-  max-width: 320px;
-  text-align: center;
-  color: rgba(255,255,255,0.9);
+  margin-top: 30px;
   font-size: 18px;
-  line-height: 1.5;
-  padding: 0 12px;
+  color: #fff;
+  text-align: center;
+  max-width: 320px;
 }
 
 @keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.05);
-  }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
