@@ -2,69 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
+  <title>MotoFlow Dashboard</title>
   <link rel="stylesheet" href="dashboard.css">
 </head>
-<body>
-  <div class="dashboard">
-    <h1>Workshop Dashboard</h1>
-    <div id="jobList"></div>
-    <button onclick="goBack()">Back</button>
+<body class="motoflow">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>MOTOFLOW</h2>
+    <ul>
+      <li>Dashboard</li>
+      <li>Jobs</li>
+      <li>Customers</li>
+      <li>Settings</li>
+    </ul>
   </div>
 
-  <script>
-// Add near the top of dashboard.js
+  <!-- MAIN -->
+  <div class="main">
 
-const currentProduct = localStorage.getItem("selectedProduct") || "motoflow";
+    <div class="topbar">
+      <h1>Workshop Dashboard</h1>
+    </div>
 
-document.body.classList.add(`theme-${currentProduct}`);
+    <div class="grid">
 
-// Example: change product theme from elsewhere in app
-// localStorage.setItem("selectedProduct", "truckflow")
-// localStorage.setItem("selectedProduct", "autoflow")
-// localStorage.setItem("selectedProduct", "washflow")
-// localStorage.setItem("selectedProduct", "motoflow")
-    
-    function getJobs() {
-      return JSON.parse(localStorage.getItem("jobs") || "[]");
-    }
+      <!-- JOB LIST -->
+      <div class="card">
+        <h2>Active Jobs</h2>
+        <div id="jobList"></div>
+      </div>
 
-    function renderJobs() {
-      const jobs = getJobs();
-      const container = document.getElementById("jobList");
-      container.innerHTML = "";
+      <!-- COMPLETED -->
+      <div class="card">
+        <h2>Completed</h2>
+        <div id="completedJobList"></div>
+      </div>
 
-      if (jobs.length === 0) {
-        container.innerHTML = "<p>No jobs yet.</p>";
-        return;
-      }
+    </div>
 
-      jobs.forEach(job => {
-        const div = document.createElement("div");
-        div.className = "job";
-        div.innerHTML = `
-          <p><strong>${job.reference}</strong></p>
-          <p>${job.description}</p>
-          <span>Status: ${job.status}</span>
-          <button onclick="completeJob('${job.id}')">Mark Ready</button>
-        `;
-        container.appendChild(div);
-      });
-    }
+  </div>
 
-    function completeJob(id) {
-      let jobs = getJobs();
-      jobs = jobs.map(j => j.id === id ? { ...j, status: "Ready" } : j);
-      localStorage.setItem("jobs", JSON.stringify(jobs));
-      renderJobs();
-    }
+  <!-- JOB PANEL -->
+  <div id="jobPanel" class="hidden">
+    <textarea id="jobDesc"></textarea>
+    <button id="saveJob">Save</button>
+    <button id="closePanel">Close</button>
+  </div>
 
-    function goBack() {
-      window.location.href = "index.html";
-    }
+  <button id="dashboardMic">🎤</button>
 
-    renderJobs();
-  </script>
+  <script src="dashboard.js"></script>
 </body>
 </html>
