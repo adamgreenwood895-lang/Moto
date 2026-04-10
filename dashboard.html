@@ -14,6 +14,18 @@
   </div>
 
   <script>
+// Add near the top of dashboard.js
+
+const currentProduct = localStorage.getItem("selectedProduct") || "motoflow";
+
+document.body.classList.add(`theme-${currentProduct}`);
+
+// Example: change product theme from elsewhere in app
+// localStorage.setItem("selectedProduct", "truckflow")
+// localStorage.setItem("selectedProduct", "autoflow")
+// localStorage.setItem("selectedProduct", "washflow")
+// localStorage.setItem("selectedProduct", "motoflow")
+    
     function getJobs() {
       return JSON.parse(localStorage.getItem("jobs") || "[]");
     }
