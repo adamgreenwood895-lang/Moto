@@ -2,7 +2,12 @@ body.motoflow {
   margin: 0;
   font-family: Arial;
   color: white;
-  background: url('assets/bgnew.png') center/cover no-repeat;
+
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 0, 80, 0.15), transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(255, 50, 0, 0.12), transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.03), transparent 50%),
+    linear-gradient(180deg, #050505 0%, #140707 100%);
 }
 
 /* Layout */
