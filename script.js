@@ -1,3 +1,4 @@
+const garageType = localStorage.getItem("garageType") || "motoflow";
 let listening = false;
 
 const tapZone = document.getElementById("tapZone");
