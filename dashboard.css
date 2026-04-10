@@ -1,70 +1,70 @@
-body {
+body.motoflow {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f5f5f5;
-  color: #111;
-}
-/* Add to dashboard.css */
-
-body.theme-motoflow {
-  background:
-    radial-gradient(circle at 20% 20%, rgba(0,140,255,0.18), transparent 35%),
-    radial-gradient(circle at 80% 30%, rgba(0,180,255,0.12), transparent 35%),
-    linear-gradient(180deg, #05070d 0%, #0b1220 100%);
+  font-family: Arial;
+  color: white;
+  background: url('assets/bgnew.png') center/cover no-repeat;
 }
 
-body.theme-truckflow {
-  background:
-    radial-gradient(circle at 20% 20%, rgba(255,120,0,0.18), transparent 35%),
-    radial-gradient(circle at 80% 30%, rgba(255,180,0,0.12), transparent 35%),
-    linear-gradient(180deg, #0d0905 0%, #20140b 100%);
-}
-
-body.theme-autoflow {
-  background:
-    radial-gradient(circle at 20% 20%, rgba(0,255,170,0.16), transparent 35%),
-    radial-gradient(circle at 80% 30%, rgba(0,180,255,0.10), transparent 35%),
-    linear-gradient(180deg, #04100d 0%, #0b1b18 100%);
-}
-
-body.theme-washflow {
-  background:
-    radial-gradient(circle at 20% 20%, rgba(120,0,255,0.18), transparent 35%),
-    radial-gradient(circle at 80% 30%, rgba(255,0,180,0.10), transparent 35%),
-    linear-gradient(180deg, #0a0510 0%, #170b20 100%);
-}
-.dashboard {
+/* Layout */
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  position: fixed;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(20px);
   padding: 20px;
 }
 
-h1 {
-  text-align: center;
+.sidebar h2 {
+  color: red;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 10px 0;
+  opacity: 0.8;
+}
+
+.main {
+  margin-left: 220px;
+  padding: 20px;
+}
+
+.topbar {
   margin-bottom: 20px;
 }
 
-.job {
-  background: white;
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Cards */
+.card {
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(20px);
+  border-radius: 12px;
   padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.job p {
-  margin: 5px 0;
+/* Job cards */
+.job-card {
+  background: rgba(255,255,255,0.05);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
 }
 
-.job span {
-  display: block;
-  margin-top: 5px;
-  color: #666;
-}
-
-button {
-  margin-top: 10px;
-  padding: 8px 12px;
-  border: none;
-  background: black;
-  color: white;
-  border-radius: 6px;
+/* Mic */
+#dashboardMic {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 20px;
 }
