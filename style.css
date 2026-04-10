@@ -46,7 +46,7 @@ body {
 
   background: transparent;
   border: none;
-  outline: none;
+  outline: 2px solid red;
   box-shadow: none;
   cursor: pointer;
 }
