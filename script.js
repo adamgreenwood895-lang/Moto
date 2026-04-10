@@ -1,4 +1,3 @@
-const garageType = localStorage.getItem("garageType") || "motoflow";
 let listening = false;
 
 const tapZone = document.getElementById("tapZone");
@@ -6,6 +5,10 @@ const output = document.getElementById("output");
 
 let recognition = null;
 
+// ---------------- GARAGE TYPE ----------------
+const garageType = localStorage.getItem("garageType") || "motoflow";
+
+// ---------------- SPEECH RECOGNITION ----------------
 if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -18,7 +21,7 @@ if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
   recognition.onstart = () => {
     listening = true;
     tapZone.classList.add("listening");
-    output.textContent = "Listening... Speak a command now.";
+    output.textContent = "Listening... Speak now.";
   };
 
   recognition.onresult = (event) => {
@@ -31,59 +34,135 @@ if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
   recognition.onerror = () => {
     listening = false;
     tapZone.classList.remove("listening");
-    output.textContent = "Mic error. Tap and try again.";
+    output.textContent = "Mic error. Try again.";
   };
 
   recognition.onend = () => {
     listening = false;
     tapZone.classList.remove("listening");
 
-    if (
-      !output.textContent ||
-      output.textContent === "Listening... Speak a command now."
-    ) {
+    if (output.textContent === "Listening... Speak now.") {
       output.textContent = "Tap the mic and say a command.";
     }
   };
-} else {
-  output.textContent = "Speech recognition is not supported on this device.";
 }
 
+// ---------------- TAP ZONE ----------------
 tapZone.addEventListener("click", () => {
   if (!recognition) return;
 
-  if (!listening) {
-    recognition.start();
-  } else {
-    recognition.stop();
-  }
+  if (!listening) recognition.start();
+  else recognition.stop();
 });
 
+// ---------------- MAIN COMMAND ROUTER ----------------
 function handleCommand(command) {
   const cmd = command.toLowerCase();
 
+  // Route to correct garage logic
+  if (garageType === "motoflow") {
+    handleMotoFlow(cmd, command);
+    return;
+  }
+
+  if (garageType === "truckflow") {
+    handleTruckFlow(cmd, command);
+    return;
+  }
+
+  if (garageType === "washflow") {
+    handleWashFlow(cmd, command);
+    return;
+  }
+
+  if (garageType === "autoflow") {
+    handleAutoFlow(cmd, command);
+    return;
+  }
+
+  // Fallback
+  handleMotoFlow(cmd, command);
+}
+
+// ---------------- MOTOFLOW LOGIC ----------------
+function handleMotoFlow(cmd, originalText) {
   const newJobWords = ["create", "new", "book", "add"];
   const updateWords = ["update", "existing", "change", "complete", "ready"];
 
-  // CREATE NEW JOB
+  // CREATE JOB
   if (newJobWords.some(word => cmd.includes(word))) {
-    const newJob = {
-      id: Date.now().toString(),
-      reference: `Job-${Date.now()}`,
-      description: command,
-      status: "Pending",
-      actions: []
-    };
+    createJob(originalText);
+    return;
+  }
 
-    const jobs = JSON.parse(localStorage.getItem("jobs") || "[]");
+  // UPDATE JOB
+  if (updateWords.some(word => cmd.includes(word))) {
+    updateJob(cmd);
+    return;
+  }
 
-    jobs.push(newJob);
-    localStorage.setItem("jobs", JSON.stringify(jobs));
+  output.textContent = "MotoFlow: Command not recognised.";
+}
 
-    // Important: tells dashboard which job to open
-    localStorage.setItem("currentJobId", newJob.id);
+// ---------------- TRUCKFLOW (PLACEHOLDER) ----------------
+function handleTruckFlow(cmd, originalText) {
+  output.textContent = "TruckFlow not configured yet.";
+}
 
-    output.textContent = `${newJob.reference} created. Opening dashboard...`;
+// ---------------- WASHFLOW (PLACEHOLDER) ----------------
+function handleWashFlow(cmd, originalText) {
+  output.textContent = "WashFlow not configured yet.";
+}
+
+// ---------------- AUTOFLOW (PLACEHOLDER) ----------------
+function handleAutoFlow(cmd, originalText) {
+  output.textContent = "AutoFlow not configured yet.";
+}
+
+// ---------------- CREATE JOB ----------------
+function createJob(command) {
+  const newJob = {
+    id: Date.now().toString(),
+    reference: `Job-${Date.now()}`,
+    description: command,
+    status: "Pending",
+    actions: []
+  };
+
+  const jobs = JSON.parse(localStorage.getItem("jobs") || "[]");
+
+  jobs.push(newJob);
+  localStorage.setItem("jobs", JSON.stringify(jobs));
+
+  // IMPORTANT: tells dashboard which job to open
+  localStorage.setItem("currentJobId", newJob.id);
+
+  output.textContent = `${newJob.reference} created...`;
+
+  setTimeout(() => {
+    window.location.href = "dashboard.html";
+  }, 500);
+}
+
+// ---------------- UPDATE JOB ----------------
+function updateJob(cmd) {
+  const jobs = JSON.parse(localStorage.getItem("jobs") || "[]");
+
+  const match = jobs.find(job => {
+    const desc = job.description.toLowerCase();
+    const ref = job.reference.toLowerCase();
+
+    // Match job number
+    if (cmd.includes(ref)) return true;
+
+    // Match meaningful words
+    return desc.split(" ").some(word => word.length > 3 && cmd.includes(word));
+  });
+
+  if (match) {
+    localStorage.setItem("currentJobId", match.id);
+
+    output.textContent = `Opening ${match.reference}...`;
 
     setTimeout(() => {
       window.location.href = "dashboard.html";
@@ -92,41 +171,6 @@ function handleCommand(command) {
     return;
   }
 
-  // UPDATE EXISTING JOB
-  if (updateWords.some(word => cmd.includes(word))) {
-    const jobs = JSON.parse(localStorage.getItem("jobs") || "[]");
-
-    const matchedJob = jobs.find(job => {
-      const description = job.description.toLowerCase();
-      const reference = job.reference.toLowerCase();
-
-      if (cmd.includes(reference)) return true;
-
-      const importantWords = description
-        .split(" ")
-        .filter(word => word.length > 3);
-
-      return importantWords.some(word => cmd.includes(word));
-    });
-
-    if (matchedJob) {
-      localStorage.setItem("currentJobId", matchedJob.id);
-
-      output.textContent = `${matchedJob.reference} found. Opening dashboard...`;
-
-      setTimeout(() => {
-        window.location.href = "dashboard.html";
-      }, 500);
-
-      return;
-    }
-
-    output.textContent =
-      "No matching job found. Try saying the customer name, bike model or job number.";
-
-    return;
-  }
-
   output.textContent =
-    "Command not recognised. Try 'Create new job for...' or 'Update John Smith Ducati job'.";
-                                 }
+    "No matching job found. Say customer name or job number.";
+      }
